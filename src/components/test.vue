@@ -10,6 +10,10 @@
 			<li>点击第三个</li>
 		</ul>
 
+		<button >登陆{{count}}{{fullName}}</button>
+
+
+
 
 	</div>
 	
@@ -27,9 +31,24 @@
 		mounted(){
 
 		},
+		computed:{
+			count(){
+				return this.$store.state.count
+			},
+			fullName(state) {
+				return this.$store.getters.fullName
+			},
+			texta(){
+				return this.$store.state.a.text
+			},
+
+			textb(){
+				return this.$store.state.b.text
+			}
+		},
 		methods:{
 			show(){
-				console.log('ok');
+				 this.$toast('Hello world!')
 			}
 
 

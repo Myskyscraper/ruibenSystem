@@ -7,30 +7,36 @@
 
 
 		<form action="">
+
+			
 			<section class="input_container user_name">
-				<input type="text" placeholder="用户名">
+				<input type="text" placeholder="用户名" >
 			</section>
 
 			<section class="input_container user_password">
 				
 				<input type="password" placeholder="登陆密码">
 
-				
 			</section>
 
+
+			
 			<section class="input_container input_btn">
 				
 				<button>登陆</button>
 
 
-
 			</section>
+
+
+			<button >登陆{{count}}{{fullName}}</button>
+
+			<p v-on:click="show">点击请求</p>
 
 
 
 
 		</form>
-
 
 
 
@@ -47,13 +53,35 @@
 		created(){
 
 		},
-		methods:{
+		mounted(){
+			console.log(this.$store);
+			let i=1;
+			setInterval(() => {
+			  this.$store.commit('updateCount',i++)
+			}, 1000)
+		},
+		computed:{
+			count(){
+				return this.$store.state.count
+			},
+			fullName(state) {
+				return this.$store.getters.fullName
+			},
+			texta(){
+				return this.$store.state.a.text
+			},
 
+			textb(){
+				return this.$store.state.b.text
+			}
+		},
+		methods:{
+			show(){
+				console.log('ok');
+			}
 		}
 
 	}
-
-
 
 
 </script>
