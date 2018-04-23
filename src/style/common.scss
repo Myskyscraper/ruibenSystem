@@ -16,13 +16,9 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
     }
 
     font-size:30px;
+
+    background:#666;
 }
-
-
-li{
-    list-style:none;
-}
-
 
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
@@ -59,6 +55,7 @@ html,body{
     height: 100%;
     width: 100%;
     background-color: #F5F5F5;
+    margin:0;
 }
 
 

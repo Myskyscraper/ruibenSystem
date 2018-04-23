@@ -10,12 +10,12 @@
 
 			
 			<section class="input_container user_name">
-				<input type="text" placeholder="用户名" >
+				<input type="text" placeholder="用户名" v-model="user">
 			</section>
 
 			<section class="input_container user_password">
 				
-				<input type="password" placeholder="登陆密码">
+				<input type="password" placeholder="登陆密码" v-model="pass">
 
 			</section>
 
@@ -23,15 +23,13 @@
 			
 			<section class="input_container input_btn">
 				
-				<button>登陆</button>
+				<button v-on:click="loginBtn">登陆</button>
 
 
 			</section>
 
 
-			<button >登陆{{count}}{{fullName}}</button>
-
-			<p v-on:click="show">点击请求</p>
+		
 
 
 
@@ -44,40 +42,37 @@
 </template>
 
 <script >
+	import qs from 'qs';
+
 	export default{
 		data(){
 			return {
-
+				user:'',
+				pass:''
 			}
 		},
 		created(){
 
 		},
 		mounted(){
-			console.log(this.$store);
-			let i=1;
-			setInterval(() => {
-			  this.$store.commit('updateCount',i++)
-			}, 1000)
+			
 		},
 		computed:{
-			count(){
-				return this.$store.state.count
-			},
-			fullName(state) {
-				return this.$store.getters.fullName
-			},
-			texta(){
-				return this.$store.state.a.text
-			},
-
-			textb(){
-				return this.$store.state.b.text
-			}
+			
 		},
 		methods:{
-			show(){
-				console.log('ok');
+			loginBtn(){
+
+				console.log(this.user,this.pass);
+				this.$axios({
+					method:'post',
+					url:"http://121.40.32.223:8081/v3/home/index",
+					data:qs.stringify({
+						skipSign:1
+					})
+				}).then( response =>{
+					console.log("请I去数据"+response.data);
+				})
 			}
 		}
 

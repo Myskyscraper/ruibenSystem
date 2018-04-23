@@ -19,6 +19,7 @@ export default {
 
   @import './style/common';
 
+
   
 
 </style>

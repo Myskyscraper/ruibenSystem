@@ -8,6 +8,8 @@ import Test from '@/components/test'
 
 import Login from '@/page/login'
 
+import Home from '@/page/home'
+
 
 
 Vue.use(Router)
@@ -15,7 +17,7 @@ Vue.use(Router)
 export default new Router({
 	routes: [{
 			path: '/',
-			redirect: '/login'
+			redirect: '/Home'
 		}, {
 			path: '/02',
 			name: 'Test',
@@ -25,6 +27,11 @@ export default new Router({
 			name: 'HelloWorld',
 			component: HelloWorld
 		}, {
+			path: '/Home',
+			component: Home
+		},
+
+		{
 			path: '/login',
 			name: 'Login',
 			component: Login
