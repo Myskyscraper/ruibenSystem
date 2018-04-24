@@ -55,6 +55,8 @@
 
 		</div>
 
+		<div class="rebtn" v-on:click="show">请求数据</div>
+
 	</div>
 	
 
@@ -80,27 +82,27 @@
 			}
 		},
 		created(){
-			this.$axios({
-				method:'post',
-				url:"/api/home/index",
-				data:qs.stringify({
-					skipSign:1
-				})
-			}).then( response =>{
-				console.log("数据"+response.data);
-			}).catch(function (error) {
-				console.log(error);
-			})
+			
 		},
 		mounted(){
 			 
 		},
 		methods:{
 
-			// 开始复制
-			
+			show(){
+				console.log('ok');
 
-			// 复制结束
+				this.$axios({
+					method:'post',
+					url:'/api/book/1003076'
+				}).then(response =>{
+
+				
+				}).catch(function(){
+
+				})	 
+
+			}
 
 
 		}

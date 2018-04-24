@@ -17,6 +17,7 @@ import './style/common.css'
 Vue.prototype.$axios = axios;
 
 
+
 var VueValidator = require('vue-validator');
 
 // Vue.use(Mint);
