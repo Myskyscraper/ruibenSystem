@@ -17,7 +17,11 @@ export default {
 
 <style  scoped lang="scss">
 
-  @import './style/common';
+
+
+
+
+  
 
 
   
