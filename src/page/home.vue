@@ -42,7 +42,7 @@
 				<img src="../images/p1_new.png" alt="">
 				<div class="newPlayer-box-wrap">
 					<p>新手专享标</p>
-					<h5>04-19 13:30</h5>
+					<h5>{{newPlayer.addTime}}</h5>
 				</div>
 
 			</div>
@@ -51,19 +51,19 @@
 			<ul class="biao-two-column-display">
 
 				<li class="new-biao-bate">
-					<p>15.2<span>%</span></p>
+					<p>{{newPlayer.apr}}</p>
 
 					<h5>历史年化收益</h5>
 				</li>
 
 				<li class="new-biao-date">
-					<p>12 <span>个月</span></p>
+					<p>{{newPlayer.investPeriod}}</p>
 				    <h5>标的期限</h5>
 				</li>
 			</ul>
 
 			<div class="newbiao-makesure-btn">
-				确认投标
+					确认投标
 			</div>
 
 
@@ -149,7 +149,7 @@
 
 
 
-		<div class="rebtn" v-on:click="show">请求数据</div>
+		<div class="rebtn" v-on:click="show">请求数据{{newPlayer.id}}</div>
 
 	</div>
 	
@@ -168,21 +168,29 @@
 	export default{
 		data(){
 			return{
-
+				allData:{},
+				newPlayer:{}
 			}
 		},
 		created(){
-			
+			this.$nextTick()
+
+			.then(() =>{
+				this.initData();
+			})
+
+
 		},
 		mounted(){
-			 
+			
 		},
 		methods:{
 
 			show(){
+				console.log('ok')
+			},
 
-				//console.log('ok');
-
+			initData(){
 				this.$axios({
 					method:'post',
 					url:'http://121.40.32.223:8081/v3/home/index',
@@ -191,11 +199,11 @@
 					})
 
 				}).then(response =>{
-				
+					this.newPlayer = response.data.data.newPlayer;
+					
 				}).catch(function(){
-					console.log(222);
+					
 				})	 
-
 			}
 
 

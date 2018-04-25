@@ -10,7 +10,17 @@
 			<li>点击第三个</li>
 		</ul>
 
+		
+
+		<div>
+			{{newPlayer.account}}
+
+		</div>
+
 		<button >登陆{{count}}{{fullName}}</button>
+			}
+
+
 
 
 
@@ -20,16 +30,20 @@
 </template>
 
 <script>
-
+	import qs from 'qs';
 	export default {
 		name:'test',
 		data(){
 			return {
-				
+				allData:{},
+				newPlayer:{}
 			}
 		},
+		created(){
+			this.show();
+		},
 		mounted(){
-			console.log(this.$store);
+		
 			let i=1;
 			setInterval(() => {
 			  this.$store.commit('updateCount',i++)
@@ -52,7 +66,25 @@
 		},
 		methods:{
 			show(){
-				 this.$toast('Hello world!')
+
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v3/home/index',
+					data:qs.stringify({
+						skipSign:1
+					})
+
+				}).then(response =>{
+
+					this.allData = response.data;
+					this.newPlayer = response.data.data.newPlayer
+					console.log(response.data)
+
+
+				}).catch(function(){
+					
+				})	
+				 
 			}
 
 
