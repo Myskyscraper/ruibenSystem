@@ -12,7 +12,7 @@ module.exports = {
 
         proxyTable: {
             '/api': {
-                target: 'https://api.douban.com/v2',
+                target: 'http://121.40.32.223:8081/v3',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''

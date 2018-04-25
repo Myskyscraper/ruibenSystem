@@ -2,7 +2,12 @@ $blue: #3190e8;
 $bc: #e4e4e4;
 $fc:#8A888F;
 
+$red:#FD4348;
+
 $by:#F2B249;
+
+$gray:#738299;
+
 
 // 背景图片地址和大小
 @mixin bis($url) { 
@@ -91,4 +96,11 @@ $by:#F2B249;
 
 @mixin bc($color){
 	background-color:$color;
+}
+
+@mixin fcs($size,$color){
+
+	font-size:$size;
+	color:$color;
+
 }
