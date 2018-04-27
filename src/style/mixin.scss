@@ -30,6 +30,12 @@ $gray:#738299;
 	right:0;
 }
 
+@mixin allLeft{
+	position:absolute;
+	top:0;
+	left:0;
+}
+
 //定位上下左右居中
 @mixin center {  
 	position: absolute;

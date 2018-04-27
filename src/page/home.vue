@@ -4,13 +4,62 @@
 
 		<!-- 首页开始 -->
 			<div class="banner-wrap">
-				首页banner
+
+				<!-- Swiper -->
+				<div class="home_banner">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+
+							<!-- <div class="swiper-slide">
+								<img src="../images/logo.png">
+							</div>
+							<div class="swiper-slide">
+								<img src="../images/logo.png">
+							</div>
+							<div class="swiper-slide">
+								<img src="../images/logo.png">
+							</div> -->
+
+							<div class="swiper-slide" v-for="item in bannerList">
+								<img src="../images/app_img_url1501034226.jpg">
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<!-- Swiper end  -->
+
 
 			</div>
 
 
 			<div class="notice-wrap">
-				滚动通知栏
+				<!-- 通知栏开始 -->
+				<!-- <div class="home_notice">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+
+							<div class="swiper-slide">
+								我是1
+							</div>
+							<div class="swiper-slide">
+								我是2
+							</div>
+							<div class="swiper-slide">
+								我是3
+							</div>
+
+							
+
+
+						</div>
+					</div>
+				</div> -->
+
+				<!-- 通知栏结束 -->
+				通知栏
+				
 			</div>
 
 		<!-- 首页结束 -->
@@ -23,9 +72,18 @@
 				<img src="../images/p1_title1.png">
 				<p>新手引导</p>
 			</li>
-			<li></li>
-			<li></li>
-			<li></li>
+			<li>
+				<img src="../images/p1_title2.png">
+				<p>安全保障</p>
+			</li>
+			<li>
+				<img src="../images/p1_title3.png">
+				<p>邀请有礼</p>
+			</li>
+			<li>
+				<img src="../images/p1_title4.png">
+				<p>发标预告</p>
+			</li>
 
 
 		</ul>
@@ -74,67 +132,52 @@
 
 		<div class="biao-list-wrap">
 
-			<div class="biao-item">
-				<p class="com-biao-title">奔驰A200抵押贷款</p>
+			
+
+			<!-- 循环开始-->
+
+			<div class="biao-item" v-for="item in borrow">
+				<p class="com-biao-title">奔驰A200抵押贷款 </p>
+
 				<div class="biao-icon-content">
-					
+					<span class="icon-sign" v-show="Number(item.isAuto)">自动</span>
+
+					<span class="icon-sign" v-show="Number(item.isDay)">天</span>
+
+					<span class="icon-sign" v-show="Number(item.isDxb)">质押</span>
+
+					<span class="icon-sign" v-show="Number(item.isTiming)">抵</span>
+
 				</div>
 
 				<div class="progress-content">
-					
-
+					<Progress v-bind:rateProg="rateProg" v-bind:data="item.apr"></Progress>
 				</div>
+
+
 
 				<ul class="biao-info-content">
 
 					<li class="com-biao-bate">
-						<p>15.2<span>%</span></p>
+						<p>{{item.apr}}<span>%</span></p>
 
 						<h5>历史年化收益</h5>
 					</li>
 					<li class="com-biao-date">
-						<p>12 <span>个月</span></p>
+						<p>{{item.investPeriod}}<span>个月</span></p>
 						<h5>标的期限</h5>
 					</li>
 					<li class="com-biao-amount">
-						<p>2324 <span>万元</span></p>
+						<p>{{item.account}}<span>万</span></p>
 						<h5>标的金额</h5>
 					</li>
 				</ul>
 
 			</div>
+			<!-- 循环结束 -->
 
-			<!-- 第二个开始 -->
-			<div class="biao-item">
-				<p class="com-biao-title">奔驰A200抵押贷款</p>
-				<div class="biao-icon-content">
-					
-				</div>
 
-				<div class="progress-content">
-					
 
-				</div>
-
-				<ul class="biao-info-content">
-
-					<li class="com-biao-bate">
-						<p>15.2<span>%</span></p>
-
-						<h5>历史年化收益</h5>
-					</li>
-					<li class="com-biao-date">
-						<p>12 <span>个月</span></p>
-						<h5>标的期限</h5>
-					</li>
-					<li class="com-biao-amount">
-						<p>2324 <span>万元</span></p>
-						<h5>标的金额</h5>
-					</li>
-				</ul>
-
-			</div>
-			<!-- 第二个结束 -->
 		</div>
 
 		<!-- 主要说明 -->
@@ -164,13 +207,20 @@
 
 	import '../style/swiper.min.css';
 
+	import Progress from '../components/progress.vue'
 
 	export default{
 		data(){
 			return{
 				allData:{},
-				newPlayer:{}
+				newPlayer:{},
+				bannerList:[],
+				borrow:[],
+				rateProg:'12'
 			}
+		},
+		components:{
+			Progress
 		},
 		created(){
 			this.$nextTick()
@@ -178,10 +228,18 @@
 			.then(() =>{
 				this.initData();
 			})
-
-
 		},
 		mounted(){
+
+			var mySwiper = new Swiper('.home_banner .swiper-container', {
+				direction: 'horizontal',
+				loop: true
+			});
+
+			var mySwiper2 = new Swiper('.home_notice .swiper-container', {
+				direction : 'vertical',
+				loop: true
+			})
 			
 		},
 		methods:{
@@ -199,7 +257,10 @@
 					})
 
 				}).then(response =>{
-					this.newPlayer = response.data.data.newPlayer;
+					this.newPlayer  = response.data.data.newPlayer;
+					this.bannerList = response.data.data.bannerList;
+					this.borrow =  response.data.data.borrow;
+
 					
 				}).catch(function(){
 					
@@ -223,11 +284,28 @@
 	@include sc(0.18rem,$fc);
 	.banner-wrap{
 		@include wh(100%,1.8rem);
+		.swiper-slide{
+			width: 100%!important;
+			height: 1.8rem!important;
+			background: pink;
+
+			img{
+				display: block;
+				height: 1.8rem;
+			}
+		}
+		
 		
 	}
 
 	.notice-wrap{
 		@include wh(100%,0.33rem);
+		.home_notice{
+			@include wh(100%,0.33rem);
+			.swiper-container{
+				@include wh(100%,0.33rem);
+			}
+		}
 	}
 
 	.spc-header{height: 0.2rem; @include bc(#f0f1f8)}
@@ -333,8 +411,22 @@
 				@include font(0.15rem,0.18rem)
 			}
 
+			.biao-icon-content{
+				@include wh(100%,0.3rem);
+				line-height: 0.3rem;
+				span{
+					padding: 0.01rem 0.03rem;
+					border:0.01rem solid  #A1BCE5;
+					border-radius: 0.05rem;
+					@include fcs(0.01rem,#A1BCE5 )
+				}
+			}
+
+
 			.progress-content{
-				@include wh(100%,0.4rem)
+				box-sizing: border-box;
+				padding-top: 0.05rem;
+				@include wh(100%,0.2rem)
 			}
 			.biao-info-content{
 				display: flex;

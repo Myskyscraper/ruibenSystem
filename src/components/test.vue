@@ -17,8 +17,11 @@
 
 		</div>
 
-		<button >登陆{{count}}{{fullName}}</button>
-			}
+		<button >登陆{{fullName}}</button>
+		
+		<p>{{count}}</p>
+
+		<p>{{test}}</p>
 
 
 
@@ -50,6 +53,9 @@
 			}, 1000)
 		},
 		computed:{
+			test(){
+				return this.$store.state.test
+			},
 			count(){
 				return this.$store.state.count
 			},
