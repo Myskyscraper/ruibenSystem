@@ -4,9 +4,9 @@
 		
 		<div class="progress-box">
 
-								<span class="progressNumber">{{rateProg}}</span>
+			<span class="progressNumber">{{data}}</span>
 
-			<div class="progress" v-bind:style="'width:'+rateProg+'%;'"></div>
+			<div class="progress" v-bind:style="'width:'+data+'%;'"></div>
 		</div>
 		<!-- v-bind:属性=“ ‘字符串’+自定义变量名” -->
 		
@@ -25,7 +25,9 @@
 				w:50
 			}
 		},
-		props:['rateProg']
+		props:{
+			data:""
+		}
 
 
 	}

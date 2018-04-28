@@ -9,21 +9,9 @@
 				<div class="home_banner">
 					<div class="swiper-container">
 						<div class="swiper-wrapper">
-
-							<!-- <div class="swiper-slide">
-								<img src="../images/logo.png">
-							</div>
-							<div class="swiper-slide">
-								<img src="../images/logo.png">
-							</div>
-							<div class="swiper-slide">
-								<img src="../images/logo.png">
-							</div> -->
-
 							<div class="swiper-slide" v-for="item in bannerList">
 								<img src="../images/app_img_url1501034226.jpg">
 							</div>
-
 
 						</div>
 					</div>
@@ -36,29 +24,23 @@
 
 			<div class="notice-wrap">
 				<!-- 通知栏开始 -->
-				<!-- <div class="home_notice">
+
+
+				<div class="home_notice">
+
 					<div class="swiper-container">
 						<div class="swiper-wrapper">
 
-							<div class="swiper-slide">
-								我是1
+							<div class="swiper-slide" v-for="item in newsPost" style="height:0.3rem;">
+								{{item.name}}
 							</div>
-							<div class="swiper-slide">
-								我是2
-							</div>
-							<div class="swiper-slide">
-								我是3
-							</div>
-
-							
-
 
 						</div>
 					</div>
-				</div> -->
+				</div>
 
 				<!-- 通知栏结束 -->
-				通知栏
+			
 				
 			</div>
 
@@ -151,7 +133,7 @@
 				</div>
 
 				<div class="progress-content">
-					<Progress v-bind:rateProg="rateProg" v-bind:data="item.apr"></Progress>
+					<Progress  v-bind:data="item.apr"></Progress>
 				</div>
 
 
@@ -191,8 +173,9 @@
 		<p class="warn-monery-title-wrap">您的资金由江西银行资金存管系统监管</p>
 
 
+		 <Foot></Foot>
 
-		<div class="rebtn" v-on:click="show">请求数据{{newPlayer.id}}</div>
+		<!-- <div class="rebtn" v-on:click="show">请求数据{{newPlayer.id}}</div> -->
 
 	</div>
 	
@@ -209,6 +192,8 @@
 
 	import Progress from '../components/progress.vue'
 
+	import Foot from '../components/foot.vue'
+
 	export default{
 		data(){
 			return{
@@ -216,30 +201,26 @@
 				newPlayer:{},
 				bannerList:[],
 				borrow:[],
-				rateProg:'12'
+				newsPost:[]
 			}
 		},
 		components:{
-			Progress
+			Progress,
+			Foot
 		},
 		created(){
-			this.$nextTick()
 
+			this.$nextTick()
 			.then(() =>{
 				this.initData();
+				this.swiperFun();
 			})
+
+			
 		},
 		mounted(){
 
-			var mySwiper = new Swiper('.home_banner .swiper-container', {
-				direction: 'horizontal',
-				loop: true
-			});
-
-			var mySwiper2 = new Swiper('.home_notice .swiper-container', {
-				direction : 'vertical',
-				loop: true
-			})
+		
 			
 		},
 		methods:{
@@ -247,6 +228,7 @@
 			show(){
 				console.log('ok')
 			},
+
 
 			initData(){
 				this.$axios({
@@ -260,11 +242,35 @@
 					this.newPlayer  = response.data.data.newPlayer;
 					this.bannerList = response.data.data.bannerList;
 					this.borrow =  response.data.data.borrow;
-
+					this.newsPost = response.data.data.post;
 					
 				}).catch(function(){
 					
 				})	 
+			},
+
+			swiperFun(){
+				
+					new Swiper('.home_banner .swiper-container', {
+						direction: 'horizontal',
+						loop: true,
+						autoplay:true,
+						observer:true, //修改swiper自己或子元素时，自动初始化swiper
+    					observeParents:true,//修改swiper的父元素时，自动初始化swiper
+					});
+
+
+					new Swiper('.home_notice .swiper-container', {
+						direction : 'vertical',
+						loop: true,
+						autoplay:true,
+						observer:true, //修改swiper自己或子元素时，自动初始化swiper
+    					observeParents:true,//修改swiper的父元素时，自动初始化swiper
+					})
+				
+
+
+
 			}
 
 
@@ -299,13 +305,25 @@
 	}
 
 	.notice-wrap{
-		@include wh(100%,0.33rem);
+		
+		@include wh(100%,0.3rem);
+		border-bottom: 0.01rem solid $blue; 
 		.home_notice{
-			@include wh(100%,0.33rem);
-			.swiper-container{
-				@include wh(100%,0.33rem);
+			width: 100%;
+			height: 0.3rem;
+			.swiper-wrapper{
+				height: 0.3rem;
+				.swiper-slide{
+					height: 100%!important;
+					@include fcs(0.12rem,$gray)
+					line-height: 0.3rem;
+					padding-left: 5%;
+				}
 			}
 		}
+
+
+
 	}
 
 	.spc-header{height: 0.2rem; @include bc(#f0f1f8)}
@@ -330,6 +348,7 @@
 	}
 
 	.newPlayer-wrap{
+
 		@include wh(100%,1.8rem);
 		.newPlayer-intro-wrap{
 			padding-top: 0.15rem;
