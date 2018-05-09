@@ -32,3 +32,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 
 父子组件的间的传值：https://blog.csdn.net/Johnny0991/article/details/78538004；
+
+
+需要修改的东西的：https://segmentfault.com/q/1010000013342374
