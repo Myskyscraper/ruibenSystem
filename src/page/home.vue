@@ -49,8 +49,6 @@
 
 		<!-- 首页结束 -->
 
-		
-
 		<ul class="maintitle-display-wrap" >
 			
 			<li v-on:click="linkto($event)">
