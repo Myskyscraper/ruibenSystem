@@ -8,7 +8,16 @@ import Test from '@/components/test'
 
 import Login from '@/page/login'
 
+
 import Home from '@/page/home'
+
+import Financial from '@/page/financial'
+
+import Find from '@/page/find'
+
+import User from '@/page/user'
+
+import Register from '@/page/register'
 
 
 
@@ -32,9 +41,27 @@ export default new Router({
 		},
 
 		{
+			path: '/Financial',
+			component: Financial
+		},
+
+		{
+			path: '/Find',
+			component: Find
+		},
+
+		{
+			path: '/User',
+			component: User
+		},
+
+		{
 			path: '/login',
 			name: 'Login',
 			component: Login
+		}, {
+			path: '/Register',
+			component: Register
 		}
 
 	],

@@ -10,7 +10,6 @@
 		</div>
 		<!-- v-bind:属性=“ ‘字符串’+自定义变量名” -->
 		
-			
 	<!-- 	<div class="progress" v-bind:style="'width:'+rateProg+';'"></div> -->
 	</div>
 
@@ -18,7 +17,9 @@
 </template>
 
 
+
 <script>
+
 	export default{
 		data(){
 			return {
@@ -29,13 +30,9 @@
 			data:""
 		}
 
-
 	}
 
 	
-
-
-
 
 </script>
 

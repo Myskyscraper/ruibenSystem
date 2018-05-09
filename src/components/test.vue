@@ -23,6 +23,24 @@
 
 		<p>{{test}}</p>
 
+		<p v-on:click="lookData">哈哈哈</p>
+
+		<form action="">
+
+			<div class="form-group">
+				<label>手机号:</label>
+				<input type="text" placeholder="请输入手机号码" v-model="phone"/>
+			</div>
+
+			<div class="form-group">
+				<label>手机号:</label>
+				<input type="text" placeholder="请输入手机号码" v-model="phone"/>
+			</div>
+
+		</form>
+
+
+		
 
 
 
@@ -39,7 +57,9 @@
 		data(){
 			return {
 				allData:{},
-				newPlayer:{}
+				newPlayer:{},
+				phone:1223
+
 			}
 		},
 		created(){
@@ -91,6 +111,33 @@
 					
 				})	
 				 
+			},
+
+			lookData(){
+				console.log('ok');
+
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v2/member/register',
+					data:qs.stringify({
+						skipSign:1,
+						// password:'123456',
+						// // phone:'18203651557',
+						// smsCode:'123456'
+					})
+
+				}).then(response =>{
+
+					this.allData = response.data;
+					this.newPlayer = response.data.data.newPlayer
+					console.log(response.data)
+
+
+				}).catch(function(){
+					
+				})	
+
+
 			}
 
 

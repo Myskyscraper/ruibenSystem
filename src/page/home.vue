@@ -3,9 +3,11 @@
 	<div class="homeContainer">
 
 		<!-- 首页开始 -->
+
 			<div class="banner-wrap">
 
 				<!-- Swiper -->
+
 				<div class="home_banner">
 					<div class="swiper-container">
 						<div class="swiper-wrapper">
@@ -16,6 +18,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- Swiper end  -->
 
 
@@ -48,12 +51,14 @@
 
 		
 
-		<ul class="maintitle-display-wrap">
-
-			<li>
+		<ul class="maintitle-display-wrap" >
+			
+			<li v-on:click="linkto($event)">
 				<img src="../images/p1_title1.png">
 				<p>新手引导</p>
 			</li>
+			
+
 			<li>
 				<img src="../images/p1_title2.png">
 				<p>安全保障</p>
@@ -77,6 +82,7 @@
 
 		<div class="newPlayer-wrap">
 
+		
 			<div class="newPlayer-intro-wrap">
 
 				<img src="../images/p1_new.png" alt="">
@@ -267,13 +273,11 @@
 						observer:true, //修改swiper自己或子元素时，自动初始化swiper
     					observeParents:true,//修改swiper的父元素时，自动初始化swiper
 					})
-				
-
-
-
+			},
+			linkto(event){
+			  window.location.href = "https://www.hushangcaifu.com/guide/index"
+			 
 			}
-
-
 		}
 	}
 	
@@ -489,6 +493,8 @@
 			@include font(0.12rem,0.3rem)
 		}
 	}
+
+	
 
 	.warn-monery-title-wrap{
 		@include fcs(0.12rem,#74CC5C)
