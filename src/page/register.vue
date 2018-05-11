@@ -131,18 +131,7 @@
 			height:2rem;
 		}
 
-		// .register-con{
-		// 	.form-group{
-		// 		height: 1rem;
-		// 		label{
-		// 			@include sc(0.12rem,$fc);
-		// 		}
-		// 	}
-
-		// 	.mes-error{
-		// 		@include fcs(0.12rem,$red);
-		// 	}
-		// }
+	
 
 
 		.register-con{
