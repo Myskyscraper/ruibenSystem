@@ -19,6 +19,8 @@ import User from '@/page/user'
 
 import Register from '@/page/register'
 
+import BiaoDetail from '@/page/biaoDetail'
+
 
 
 Vue.use(Router)
@@ -62,7 +64,13 @@ export default new Router({
 		}, {
 			path: '/Register',
 			component: Register
+		},
+
+		{
+			path: '/BiaoDetail',
+			component: BiaoDetail
 		}
+
 
 	],
 	mode: 'hash' //哈希和基础的

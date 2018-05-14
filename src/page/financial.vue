@@ -18,14 +18,15 @@
 			<mt-tab-container v-model="selected">
 
 				<mt-tab-container-item id="1">
-					<mt-cell v-for="item in alldata"  class="biao-item">
+
+					<mt-cell v-for="item in alldata"  class="biao-item" >
 
 
 
 						<!-- 复制开始 -->
 
 
-						<div class="style-fixed-box">
+						<div class="style-fixed-box"  v-on:click="goDetail(item)">
 							<p class="com-biao-title">奔驰A200抵押贷款 </p>
 
 							<div class="biao-icon-content">
@@ -106,6 +107,7 @@
 
 	import { Navbar, TabItem } from 'mint-ui';
 
+	import router from '../router'
 
 
 	export default{
@@ -128,6 +130,7 @@
 			
 		},
 		methods:{
+
 			initData(){
 				this.$axios({
 					method:'post',
@@ -145,6 +148,11 @@
 					
 				})	 
 
+			},
+
+			goDetail(item){
+				console.log('ok')
+				router.push({path:"/BiaoDetail", query:{info:item}})
 			}
 		}
 	}
@@ -153,8 +161,8 @@
 
 <style lang ='scss'>
 	.mint-cell-title{
-		background:red;
-		display:none;
+		flex:0;
+		
 	}
 
 	.mint-navbar .mint-tab-item {
