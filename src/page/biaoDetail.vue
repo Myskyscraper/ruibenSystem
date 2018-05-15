@@ -7,7 +7,6 @@
 
 		<div class="cir-Bate-wrap">
 			
-
 		</div>
 
 		<ul class="biao-basic-intro">
@@ -33,7 +32,6 @@
 		</ul>
 
 		<div class="biao-common-box">
-
 			<!-- 选项卡开始 -->
 			<mt-navbar v-model="selected">
 				<mt-tab-item id="1">基础详情</mt-tab-item>
@@ -72,12 +70,10 @@
 </template>
 
 
-
 <script>
 
 	import qs from 'qs';
-
-	import { Navbar, TabItem } from 'mint-ui';
+	
 	export default {
 		data(){
 			return {
@@ -93,9 +89,16 @@
 		},
 		methods:{
 			recePro(){
-				var getInfo = String(this.$route.query.info.id);
-				console.log(getInfo);
 
+				var getInfo = String(this.$route.query.info.id);
+
+				if(getInfo == "undefined"){
+					getInfo = localStorage.getInfo	
+				}{
+					localStorage.getInfo = getInfo;
+				}
+
+				// ------------------网络请求开始
 				this.$axios({
 					method:'post',
 					url:'http://121.40.32.223:8081/v2/borrow/borrow-detail',
@@ -111,7 +114,9 @@
 					
 				}).catch(function(){
 					
-				})	
+				})
+
+				//------------------------- 网络请求结束
 
 			}
 		}
@@ -174,6 +179,13 @@
 					color:#728099;
 				}
 			}
+		}
+
+		.mint-tab-container-item{
+			box-sizing:border-box;
+			@include fcs(0.12rem,$gray);
+			padding:0.1rem 0.08rem;
+			line-height:0.2rem;
 		}
 	}
 

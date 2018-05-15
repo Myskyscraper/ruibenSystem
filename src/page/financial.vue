@@ -19,9 +19,7 @@
 
 				<mt-tab-container-item id="1">
 
-					<mt-cell v-for="item in alldata"  class="biao-item" >
-
-
+					<div v-for="item in alldata"  class="biao-item" >
 
 						<!-- 复制开始 -->
 
@@ -69,7 +67,7 @@
 						<!-- 复制结束 -->
 						
 
-					</mt-cell>
+					</div>
 				</mt-tab-container-item>
 
 				<mt-tab-container-item id="2">
@@ -104,8 +102,6 @@
 	import Foot from '../components/foot.vue'
 
 	import Progress from '../components/progress.vue'
-
-	import { Navbar, TabItem } from 'mint-ui';
 
 	import router from '../router'
 
@@ -142,7 +138,6 @@
 
 				}).then(response =>{
 					this.alldata = response.data.data.list;
-					console.log(this.alldata);
 					
 				}).catch(function(){
 					
@@ -151,7 +146,6 @@
 			},
 
 			goDetail(item){
-				console.log('ok')
 				router.push({path:"/BiaoDetail", query:{info:item}})
 			}
 		}
@@ -202,14 +196,11 @@
 
 		.biao-item{
 
-
-			.mint-cell-title{display:none!important;}
-
 			padding: 0.15rem;
 			@include bc(#fff);
 			margin-bottom: 0.2rem;
 
-			.mint-cell-value{
+			
 
 				    flex-direction: column;
 				.com-biao-title{
@@ -264,7 +255,7 @@
 						}
 					}
 				}
-			}
+			
 
 			
 		}
