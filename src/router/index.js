@@ -21,6 +21,8 @@ import Register from '@/page/register'
 
 import BiaoDetail from '@/page/biaoDetail'
 
+import ToastLoginRegister from '@/page/toastLoginRegister'
+
 
 
 Vue.use(Router)
@@ -69,6 +71,9 @@ export default new Router({
 		{
 			path: '/BiaoDetail',
 			component: BiaoDetail
+		}, {
+			path: '/ToastLoginRegister',
+			component: ToastLoginRegister
 		}
 
 

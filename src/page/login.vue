@@ -10,12 +10,12 @@
 
 			
 			<section class="input_container user_name">
-				<input type="text" placeholder="用户名" v-model="user">
+				<input type="text" placeholder="用户名" v-model="username"/>
 			</section>
 
 			<section class="input_container user_password">
 				
-				<input type="password" placeholder="登陆密码" v-model="pass">
+				<input type="password" placeholder="登陆密码" v-model="password"/>
 
 			</section>
 
@@ -24,7 +24,6 @@
 			<section class="input_container input_btn">
 				
 				<button v-on:click="loginBtn">登陆</button>
-
 
 			</section>
 
@@ -42,13 +41,14 @@
 </template>
 
 <script >
+	import router from '../router'
 	import qs from 'qs';
 
 	export default{
 		data(){
 			return {
-				user:'',
-				pass:''
+				username:'',
+				password:''
 			}
 		},
 		created(){
@@ -61,17 +61,20 @@
 			
 		},
 		methods:{
+			
 			loginBtn(){
-
-				console.log(this.user,this.pass);
+				console.log(typeof this.username);
 				this.$axios({
 					method:'post',
-					url:"http://121.40.32.223:8081/v3/home/index",
+					url:'http://121.40.32.223:8081/v2/member/login',
 					data:qs.stringify({
-						skipSign:1
+						skipSign:1,
+						username:this.username,
+						password:this.password
 					})
 				}).then( response =>{
-					console.log("请I去数据"+response.data);
+					localStorage.userId = response.data.data.userId;
+					router.push({path:'./user'})
 				})
 			}
 		}

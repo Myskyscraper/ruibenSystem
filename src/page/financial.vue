@@ -56,7 +56,7 @@
 									<h5>标的期限</h5>
 								</li>
 								<li class="com-biao-amount">
-									<p>{{item.account}}<span>万</span></p>
+									<p>{{item.account}}<span></span></p>
 									<h5>标的金额</h5>
 								</li>
 							</ul>
@@ -80,9 +80,6 @@
 
 
 
-
-
-		
 
 
 

@@ -1,24 +1,28 @@
 <template>
 
 	<div class="user">
+
+		<ToastLoginRegister></ToastLoginRegister>
 		<header>
-			<span class="headImg"></span>
-			嘻嘻嘻
+			<span class="headImg">
+				<img v-bind:src="alldata.avatar" alt="">
+			</span>
+			{{alldata.username}}
 		</header>
 
 		<div class="person-info-wrap">
 			<p class="p-info-title">资产总额(元)</p>
 
-			<p class="p-info-number">1,368,540,50</p>
+			<p class="p-info-number">{{alldata.total}}</p>
 
 			<ul class="p-info-special">
 				<li>
 					<p>可用余额(元)</p>
-					<h5>78,540.00</h5>
+					<h5>{{alldata.useMoney}}</h5>
 				</li>
 				<li>
 					<p>累计收益(元)</p>
-					<h5>78,540.00</h5>
+					<h5>{{alldata.collectCapital}}</h5>
 				</li>
 			</ul>
 
@@ -78,10 +82,11 @@
 		</ul>
 
 		<ul class="intro-list-wrap">
+			<li v-on:click="LogOut"><span><img src="../images/p4_gift.png" alt="" ></span>退出登录</li>
 			<li><span><img src="../images/p4_gift.png" alt=""></span>红包奖券</li>
 			<li><span><img src="../images/p4_help.png" alt=""></span>帮助反馈</li>
 			<li><span><img src="../images/p4_setting.png" alt=""></span>更多设置</li>
-			<li></li>
+			
 		</ul>
 
 		 <Foot></Foot>
@@ -90,18 +95,57 @@
 
 
 <script>
-	import Foot from '../components/foot.vue'
+	import qs from 'qs';
+	import { Indicator } from 'mint-ui';
+	import Foot from '../components/foot.vue';
+	import ToastLoginRegister from '@/page/toastLoginRegister'
 	export default{
 		data(){
 			return {
-
+				alldata:{}
 			}
 		},
 		components:{
-			Foot
+			Foot,
+			ToastLoginRegister
+		},
+		beforeCreate(){
+			Indicator.open('Loading...');
+		},
+		created(){
+			this.$nextTick().then( () =>{
+				this.initData();
+			})
 		},
 		methods:{
+	
+			initData(){
+				Indicator.open('Loading...');
+				var userId = localStorage.userId;
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v2/member/member-info',
+					data:qs.stringify({
+						skipSign:1,
+						userId:userId
+					})
 
+				}).then(response =>{
+					Indicator.close('Loading...');
+					this.alldata = response.data.data;
+					localStorage.userInfo = response.data.data;
+					
+				}).catch(function(){
+					
+				})	 
+			},
+
+			LogOut(){
+				console.log('logout');
+				localStorage.userId =null;
+				localStorage.userInfo ={};
+				// this.$options.methods.initData();
+			}
 		}
 	}
 
@@ -128,6 +172,10 @@
 				@include wh(0.3rem,0.3rem);
 				background: #4D89E9;
 				border: 0.02rem solid #99BEFF;
+				img{
+					display:block;
+					@include wh(0.3rem,0.3rem);
+				}
 			}
 
 			i{
