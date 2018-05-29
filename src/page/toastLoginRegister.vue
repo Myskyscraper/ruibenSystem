@@ -1,21 +1,17 @@
 <template>
+	<div class="toastBox-wrap" v-show="isloaclFlag">
 
-
-	<div class="toastBox-wrap">
-
-		<div class="toastBox-bg" v-show="isShow">
+		<div class="toastBox-bg" v-show="isFlag">
 			<span class="close-btn" v-on:click="show">X</span>
 		</div>
 
-		<div class="toastBox-content" v-show="isShow">
+		<div class="toastBox-content" v-show="isFlag">
 			<div class="img-info"></div>		
 			<div class="link-box-wrap">
 				<router-link to="/Register" class="btn">注册</router-link>
 				<router-link to="/Login" class="btn">登录</router-link>
 			</div>
-
 		</div>
-
 	</div>
 </template>
 
@@ -27,24 +23,30 @@
 		data(){
 			return {
 				alldata:{},
-				isShow:true
+				isShow:true,
+				isloaclFlag:true
 			}
+		},
+		props:{
+			isFlag:Boolean
 		},
 		components:{
 			Foot
 		},
 		created(){
 			this.$nextTick().then( () =>{
-				this.show();
+				this.initData();
 			})
 		},
 		methods:{
-			show(){
-				var  userId=localStorage.userId;
-				// this.isShow =!this.isShow;
-				if(userId){
-					this.isShow =false;
+
+			initData(){
+				if(this.isFlag){
+					this.isloaclFlag = true;
 				}
+			},
+			show(){
+				this.isloaclFlag = false;
 			}
 		}
 	}
@@ -86,7 +88,6 @@
 		right:0;
 		bottom:0;
 		margin:auto;
-
 		z-index:3;
 		
 		.img-info{
@@ -115,12 +116,7 @@
 
 	}
 
-
-
 }
-
-	
-
 
 
 </style>

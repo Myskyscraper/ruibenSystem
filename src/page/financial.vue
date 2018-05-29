@@ -143,6 +143,8 @@
 			},
 
 			goDetail(item){
+				//由列表页传参到详情页
+				console.log(typeof item)
 				router.push({path:"/BiaoDetail", query:{info:item}})
 			}
 		}

@@ -60,7 +60,12 @@
 			<!-- 选项卡结束 -->
 
 
+		</div>
 
+
+
+		<div class="bottom-btn-state-wrap">
+			<div class="bottom-state-btn" v-on:click="touTender">投标</div>
 		</div>
 
 
@@ -73,6 +78,8 @@
 <script>
 
 	import qs from 'qs';
+
+	import router from '../router'
 	
 	export default {
 		data(){
@@ -110,7 +117,7 @@
 
 				}).then(response =>{
 					this.alldata = response.data.data;
-					console.log(this.alldata);
+					console.log(typeof this.alldata);
 					
 				}).catch(function(){
 					
@@ -118,7 +125,20 @@
 
 				//------------------------- 网络请求结束
 
+			},
+
+			touTender(){
+				console.log(this.alldata.status);
+				let biaoinfos = this.alldata;
+				//由详情页调到投标页
+				console.log(typeof biaoinfos)
+				if(this.alldata.status =='0'){
+					router.push({path:'/MakeSureTender',query:{info:biaoinfos}})
+				}
 			}
+
+
+
 		}
 	}
 
@@ -183,6 +203,24 @@
 			@include fcs(0.12rem,$gray);
 			padding:0.1rem 0.08rem;
 			line-height:0.2rem;
+		}
+
+		.bottom-btn-state-wrap{
+			position:fixed;
+			bottom:0;
+			left:0;
+			background:#ffffff;
+			display:flex;
+			justify-content:center;
+			align-items:center;
+			@include wh(100%,0.6rem);
+			.bottom-state-btn{
+				@include wh(80%,0.37rem);
+				background:#397BE6;
+				border-radius:0.05rem;
+				text-align:center;
+				line-height:0.37rem;
+			}
 		}
 	}
 

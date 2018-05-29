@@ -8,7 +8,7 @@
 
 		<form action="">
 
-			
+
 			<section class="input_container user_name">
 				<input type="text" placeholder="用户名" v-model="username"/>
 			</section>
@@ -19,7 +19,6 @@
 
 			</section>
 
-
 			
 			<section class="input_container input_btn">
 				
@@ -28,13 +27,7 @@
 			</section>
 
 
-		
-
-
-
-
 		</form>
-
 
 
 	</div>

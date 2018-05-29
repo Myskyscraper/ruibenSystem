@@ -12,6 +12,7 @@ import getters from './getters.js'
 Vue.use(Vuex)
 
 
+
 const store = new Vuex.Store({
 
 	state,

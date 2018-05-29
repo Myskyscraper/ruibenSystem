@@ -129,6 +129,22 @@ html,body{
     padding-top: 1.95rem;
 }
 
+.middlebtn{
+    width: 3.45rem;
+    height: 0.45rem;
+    text-align: center;
+    line-height: 0.45rem;
+    font-size: 0.18rem;
+    margin: 0 auto;
+    border-radius: 0.1rem;
+    margin-top: 0.2rem;
+}
+
+.sureBtn{
+    background: #397BE6;
+    color: #fff;
+}
+
 @keyframes backOpacity{
    0%   { opacity: 1 }
    25%  { opacity: .5 }
@@ -139,4 +155,25 @@ html,body{
 
 .animation_opactiy{
     animation: backOpacity 2s ease-in-out infinite;
+}
+
+.box-two-column{
+
+}
+
+
+.box-two-column li {
+    height: 0.45rem;
+    line-height: 0.45rem;
+    padding: 0 0.15rem;
+    border-bottom: 0.01rem solid #CCDFFF;
+}
+
+.box-two-column li  span{
+    float: left;
+}
+
+.box-two-column li  i{
+    float: right;
+    font-style: normal;
 }

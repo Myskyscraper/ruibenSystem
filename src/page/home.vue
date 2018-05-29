@@ -14,7 +14,6 @@
 							<div class="swiper-slide" v-for="item in bannerList">
 								<img src="../images/app_img_url1501034226.jpg">
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -27,7 +26,6 @@
 
 			<div class="notice-wrap">
 				<!-- 通知栏开始 -->
-
 
 				<div class="home_notice">
 
@@ -123,6 +121,7 @@
 			<!-- 循环开始-->
 
 			<div class="biao-item" v-for="item in borrow">
+
 				<p class="com-biao-title">奔驰A200抵押贷款 </p>
 
 				<div class="biao-icon-content">

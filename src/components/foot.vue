@@ -2,14 +2,12 @@
 
 	<footer id="footer">
 		<ul>
-
 			<router-link to="/Home">
 			
 				<span><img src="../images/ic_1home.png"></span>  
 				<p>精选</p>
 			
 			</router-link>	
-
 
 			<router-link to="/Financial">
 			
@@ -59,6 +57,7 @@
 
 
 <style lang ='scss' scoped>
+
 @import '../style/mixin';
 
 #footer{

@@ -23,6 +23,11 @@ import BiaoDetail from '@/page/biaoDetail'
 
 import ToastLoginRegister from '@/page/toastLoginRegister'
 
+import MakeSureTender from '@/components/makeSureTender.vue'
+
+import AutoTender from '@/page/autoTender.vue'
+
+import AddRulerTender from '@/page/addRulerTender.vue'
 
 
 Vue.use(Router)
@@ -74,6 +79,15 @@ export default new Router({
 		}, {
 			path: '/ToastLoginRegister',
 			component: ToastLoginRegister
+		}, {
+			path: '/MakeSureTender',
+			component: MakeSureTender
+		}, {
+			path: '/AutoTender',
+			component: AutoTender
+		}, {
+			path: '/AddRulerTender',
+			component: AddRulerTender
 		}
 
 

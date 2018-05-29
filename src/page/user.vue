@@ -2,7 +2,7 @@
 
 	<div class="user">
 
-		<ToastLoginRegister></ToastLoginRegister>
+		<ToastLoginRegister  v-bind:isFlag="isFlag"></ToastLoginRegister>
 		<header>
 			<span class="headImg">
 				<img v-bind:src="alldata.avatar" alt="">
@@ -10,12 +10,15 @@
 			{{alldata.username}}
 		</header>
 
+
+
 		<div class="person-info-wrap">
+
 			<p class="p-info-title">资产总额(元)</p>
 
 			<p class="p-info-number">{{alldata.total}}</p>
 
-			<ul class="p-info-special">
+			<ul class="p-info-special"> 
 				<li>
 					<p>可用余额(元)</p>
 					<h5>{{alldata.useMoney}}</h5>
@@ -99,10 +102,12 @@
 	import { Indicator } from 'mint-ui';
 	import Foot from '../components/foot.vue';
 	import ToastLoginRegister from '@/page/toastLoginRegister'
+
 	export default{
 		data(){
 			return {
-				alldata:{}
+				alldata:{},
+				isFlag :true
 			}
 		},
 		components:{
@@ -122,35 +127,65 @@
 			initData(){
 				Indicator.open('Loading...');
 				var userId = localStorage.userId;
-				this.$axios({
-					method:'post',
-					url:'http://121.40.32.223:8081/v2/member/member-info',
-					data:qs.stringify({
-						skipSign:1,
-						userId:userId
-					})
+				console.log('ok1');
+				console.log(this.alldata);
 
-				}).then(response =>{
+				if(userId =='null'){
+					console.log('ok2');
+					this.alldata ={
+						avatar:'../images/ic_4me_catch.png',
+						userMoney:'---',
+						total:'---',
+						username:'---',
+						collectCapital:'---',
+						isFlag:true
+					}
 					Indicator.close('Loading...');
-					this.alldata = response.data.data;
-					localStorage.userInfo = response.data.data;
-					
-				}).catch(function(){
-					
-				})	 
+				}else{
+					this.isFlag = false;
+					this.$axios({
+						method:'post',
+						url:'http://121.40.32.223:8081/v2/member/member-info',
+						data:qs.stringify({
+							skipSign:1,
+							userId:userId
+						})
+					}).then(response =>{
+
+						Indicator.close('Loading...');
+						this.alldata = response.data.data;
+						localStorage.userInfo = response.data.data;
+
+					}).catch(function(){
+
+					})
+				}
+
+				//----------------- 
+				
+
+				//----------------- 
 			},
 
 			LogOut(){
 				console.log('logout');
 				localStorage.userId =null;
 				localStorage.userInfo ={};
-				// this.$options.methods.initData();
+				this.isFlag = false;
+				this.alldata ={
+					avatar:'../images/ic_4me_catch.png',
+					userMoney:'---',
+					total:'---',
+					username:'---',
+					collectCapital:'---',
+					isFlag:true
+				}
+				
 			}
 		}
 	}
 
 </script>
-
 
 
 <style lang ='scss' scoped>
