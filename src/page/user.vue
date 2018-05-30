@@ -62,7 +62,7 @@
 		</ul>
 
 		<ul class="per-list-table">
-			<li>
+			<li v-on:click="goAutoTender">
 				<span><img src="../images/p4_auto.png" alt=""></span>
 
 				<dl>
@@ -101,6 +101,7 @@
 	import qs from 'qs';
 	import { Indicator } from 'mint-ui';
 	import Foot from '../components/foot.vue';
+	import router from '../router'
 	import ToastLoginRegister from '@/page/toastLoginRegister'
 
 	export default{
@@ -181,6 +182,14 @@
 					isFlag:true
 				}
 				
+			},
+
+			goAutoTender(){
+				if(localStorage.userId=='null'){
+					router.push({path:"/Login"})
+				}else{
+					router.push({path:"/AutoTender"})
+				}
 			}
 		}
 	}

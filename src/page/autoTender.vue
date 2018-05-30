@@ -1,7 +1,7 @@
 <template>
 	<div class="autoTender-wrap">
 
-		<div class="ruler-list-wrap">
+		<div class="ruler-list-wrap" v-on:click="goAddRulerTender">
 			<dl class="autoTender-title">
 				<dd>投标金额不限制</dd>
 				<dt>投标额度范围</dt>
@@ -52,21 +52,88 @@
 
 <script >
 import qs from 'qs';
+import router from '../router'
 export default{
 	data(){
 		return {
 			value1:false,
 			value2:false,
+			isOk:false
 		}
 	},
 	created(){
-		
+		this.$nextTick().then( () =>{
+					this.initData()
+			})
 	},
 
 	mounted(){
 		
 	},
 	methods:{
+		initData(){
+			var userId = localStorage.userId;
+			// ------------------网络请求开始
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v2/member/certification-status',
+					data:qs.stringify({
+						skipSign:1,
+						userId:userId
+					})
+
+				}).then(response =>{
+
+					var respObj = response.data.data;
+
+					this.isOk = false;
+					console.log( respObj);
+					
+					if(respObj.accountBankStatus =='1'){
+						if(respObj.accountStatus =='1'){
+							if(respObj.autoDebtStatus=='1'){
+								if(respObj.autoTenderStatus =='1'){
+									if(respObj.payPasswordStatus =='1'){
+										if(respObj.realStatus =='1'){
+											this.isOk = true;
+										}else{
+											Toast('请去实名认证');
+										}
+
+									}else{	
+										Toast('请去设置交易密码');
+									}
+
+								}else{
+									Toast('请去开启自动投标签约');
+								}
+							}else{
+								Toast('请去开启自动债转签约');
+							}
+
+						}else{
+							Toast('请去添加银行卡');
+						}
+					}else{
+						Toast('请去添加银行卡');
+					}
+					
+				}).catch(function(){
+					
+				})
+
+				//------------------------- 网络请求结束
+		},
+
+		goAddRulerTender(){
+			if(this.isOk ==true){
+				console.log('ok');
+				router.push({path:"/AddRulerTender"});
+			}
+			
+		}
+
+
 
 		
 	}
