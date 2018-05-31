@@ -8,7 +8,6 @@
 				<mt-navbar v-model="selected"  class="biao-list-control-wrap">
 					<mt-tab-item id="1">日常标的</mt-tab-item>
 					<mt-tab-item id="2">债券转让</mt-tab-item>
-				
 				</mt-navbar>
 
 			</header>
@@ -25,7 +24,7 @@
 
 
 						<div class="style-fixed-box"  v-on:click="goDetail(item)">
-							<p class="com-biao-title">奔驰A200抵押贷款 </p>
+							<p class="com-biao-title">{{item.name}} </p>
 
 							<div class="biao-icon-content">
 								<span class="icon-sign" v-show="Number(item.isAuto)">自动</span>
@@ -64,10 +63,19 @@
 
 						</div>
 
+
 						<!-- 复制结束 -->
-						
+
 
 					</div>
+
+					<!-- 翻页开始 -->
+
+						<mt-button type="primary" v-on:click="turnPage(-1)">上一页</mt-button>
+						<mt-button type="primary" >当前{{currentpage}}页</mt-button>
+						<mt-button type="primary" v-on:click="turnPage(1)">下一页</mt-button>
+
+						<!-- 翻页结束 -->
 				</mt-tab-container-item>
 
 				<mt-tab-container-item id="2">
@@ -76,10 +84,6 @@
 
 				
 			</mt-tab-container>
-
-
-
-
 
 
 
@@ -102,12 +106,12 @@
 
 	import router from '../router'
 
-
 	export default{
 		data(){
 			return {
 				selected: '1',
-				alldata:[] 
+				alldata:[] ,
+				currentpage:0
 			}
 		},
 		created(){
@@ -124,13 +128,13 @@
 		},
 		methods:{
 
-			initData(){
+			initData(page="0"){
 				this.$axios({
 					method:'post',
 					url:'http://121.40.32.223:8081/v2/borrow/borrow-list',
 					data:qs.stringify({
 						skipSign:1,
-						nextPage:2
+						nextPage:page
 					})
 
 				}).then(response =>{
@@ -146,6 +150,20 @@
 				//由列表页传参到详情页
 				console.log(typeof item)
 				router.push({path:"/BiaoDetail", query:{info:item}})
+			},
+
+			turnPage(type){
+
+				if(type==1){
+					this.currentpage+=1;
+				}else{
+					this.currentpage-=1;
+					if(this.currentpage <0){
+						this.currentpage=0;
+					}
+				}
+				var spage = String(this.currentpage);
+				this.initData(spage)
 			}
 		}
 	}

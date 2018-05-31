@@ -6,6 +6,19 @@
 
 
 		<div class="cir-Bate-wrap">
+			<p class="biaoAcount">￥{{alldata.account}}</p>
+
+
+			<div class="progroess-wrap">
+				<mt-progress :value="60" :bar-height="5">
+					<div slot="start">0%</div>
+					<div slot="end">100%</div>
+				</mt-progress>
+
+			</div>
+			
+		
+
 			
 		</div>
 
@@ -59,13 +72,12 @@
 			
 			<!-- 选项卡结束 -->
 
-
 		</div>
 
-
-
 		<div class="bottom-btn-state-wrap">
-			<div class="bottom-state-btn" v-on:click="touTender">投标</div>
+			<div class="bottom-state-btn" v-on:click="touTender" v-bind:class="{curBtn: isActive }">
+				{{alldata.status|btnStatus}}
+			</div>
 		</div>
 
 
@@ -80,13 +92,44 @@
 	import qs from 'qs';
 
 	import router from '../router'
+
+	import Progress from '../components/progress.vue'
 	
 	export default {
 		data(){
 			return {
 				selected: '1',
-				alldata:{}
+				alldata:{},
+				isActive:false
 			}
+		},
+		filters:{
+			btnStatus(n){
+				switch(n){
+					case '0':
+					return '审核中' 
+					break;
+
+					case '1':
+					return '立即投标';
+					break;
+
+					case '3':
+					return '还款中'
+					break;
+
+					case '6':
+					return '已结清'
+					break;
+
+					case '7':
+					return '放款中'
+					break;
+				}
+			}
+		},
+		components:{
+			Progress
 		},
 		created(){
 			this.$nextTick().then( () =>{
@@ -117,6 +160,9 @@
 
 				}).then(response =>{
 					this.alldata = response.data.data;
+					if(this.alldata.status =='1'){
+						this.isActive =true;
+					}
 					console.log(typeof this.alldata);
 					
 				}).catch(function(){
@@ -126,18 +172,16 @@
 				//------------------------- 网络请求结束
 
 			},
-
+ 
 			touTender(){
 				console.log(this.alldata.status);
 				let biaoinfos = this.alldata;
 				//由详情页调到投标页
 				console.log(typeof biaoinfos)
-				if(this.alldata.status =='0'){
+				if(this.alldata.status =='1'){
 					router.push({path:'/MakeSureTender',query:{info:biaoinfos}})
 				}
 			}
-
-
 
 		}
 	}
@@ -157,8 +201,18 @@
 			text-align:center;
 		}
 		.cir-Bate-wrap{
-			@include wh(100%,2rem);
+			@include wh(100%,1rem);
 			background:#397BE6;
+			.biaoAcount{
+				@include fcs(0.3rem,#fff);
+				padding-left:0.15rem;
+			}
+
+			.progroess-wrap{
+				padding:0 0.15rem;
+				color:#fff;
+			}
+
 		}
 
 		.biao-basic-intro{
@@ -216,10 +270,11 @@
 			@include wh(100%,0.6rem);
 			.bottom-state-btn{
 				@include wh(80%,0.37rem);
-				background:#397BE6;
+				background: #9cbdf3;
 				border-radius:0.05rem;
 				text-align:center;
 				line-height:0.37rem;
+				color:#fff;
 			}
 		}
 	}

@@ -177,3 +177,13 @@ html,body{
     float: right;
     font-style: normal;
 }
+
+.curBtn{
+    color: #fff;
+    background: #397BE6!important;
+}
+
+.refuseBtn{
+    background: #9cbdf3;
+    color: #fff;
+}
