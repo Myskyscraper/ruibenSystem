@@ -20,21 +20,22 @@
 			<li>
 				<span>月标借款期限：</span> 
 				<i> 
-					<select name="" id="">
-						<option value="1月">1</option>
-						<option value="3月">3</option>
-						<option value="6月">6</option>
-						<option value="9月">9</option>
-						<option value="12月">12</option>
+					<select name="" id="" v-model = 'minMonth'> 
+						<option value="1">1</option>
+						<option value="3">3</option>
+						<option value="6">6</option>
+						<option value="9">9</option>
+						<option value="12">12</option>
 					</select>
 
-				 	<select name="" id="">
-				 		<option value="">1</option>
-				 		<option value="">3</option>
-				 		<option value="">6</option>
-				 		<option value="">9</option>
-				 		<option value="">12</option>
+				 	<select name="" id="" v-model = 'maxMonth'>
+				 		<option value="1">1</option>
+				 		<option value="3">3</option>
+				 		<option value="6">6</option>
+				 		<option value="9">9</option>
+				 		<option value="12">12</option>
 				 	</select>
+
 				 </i>
 			</li>
 
@@ -50,9 +51,6 @@
 				保存
 		</div>
 
-
-
-	
 	
 
 
@@ -65,7 +63,8 @@
 	import qs from 'qs';
 
 	import router from '../router'
-
+	
+	import { Toast } from 'mint-ui';
 
 	
 	export default {
@@ -89,29 +88,44 @@
 			updateTenderRuler(){
 				var userId = localStorage.userId;
 				var switchval = (this.value1)?"1":'0';
-				// ------------------网络请求开始
-				this.$axios({
-					method:'post',
-					url:'http://121.40.32.223:8081/v2/borrow-auto/edit',
-					data:qs.stringify({
-						skipSign:1,
-						userId:userId,
-						minTender:this.minTender,
-						maxTender:this.maxTender,
-						minMonth:this.minMonth,
-						maxMonth:this.maxMonth,
-						dayCycleStatus:switchval,
+				var id = (this.$route.query.info);
+				
+				console.log(this.minTender);
+
+				console.log(this.maxTender);
+
+				if(this.minTender==''||this.maxTender ==''||this.minMonth ==''||this.maxMonth==''){
+					Toast('请填写正确信息')
+				}else{
+					// ------------------网络请求开始
+					this.$axios({
+						method:'post',
+						url:'http://121.40.32.223:8081/v3/borrow-auto/edit',
+						data:qs.stringify({
+							skipSign:1,
+							userId:userId,
+							minTender:this.minTender,
+							maxTender:this.maxTender,
+							minMonth:this.minMonth,
+							maxMonth:this.maxMonth,
+							dayCycleStatus:switchval,
+							id:id
+						})
+
+					}).then(response =>{
+						var txt = response.data.msg;
+						Toast(txt)	
+						router.go(-1);					
+
+					}).catch(function(){
+
 					})
 
-				}).then(response =>{
+				//------------------------- 网络请求结束
+				}
+
 
 				
-					
-				}).catch(function(){
-					
-				})
-
-				//------------------------- 网络请求结束
 			}
 		}
 	}

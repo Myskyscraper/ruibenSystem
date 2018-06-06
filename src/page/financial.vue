@@ -22,10 +22,10 @@
 
 						<!-- 复制开始 -->
 
-
 						<div class="style-fixed-box"  v-on:click="goDetail(item)">
-							<p class="com-biao-title">{{item.name}} </p>
 
+							<p class="com-biao-title">{{item.name}} </p>
+ 
 							<div class="biao-icon-content">
 								<span class="icon-sign" v-show="Number(item.isAuto)">自动</span>
 
@@ -40,7 +40,6 @@
 							<div class="progress-content">
 								<Progress  v-bind:data="item.apr"></Progress>
 							</div>
-
 
 
 							<ul class="biao-info-content">
@@ -86,11 +85,8 @@
 			</mt-tab-container>
 
 
-
-
 		<Foot></Foot>
 	</div>
-
 
 
 </template>
@@ -183,11 +179,7 @@
 
 </style>
 
-
-
-
 <style lang ='scss' scoped>
-
 
 @import '../style/mixin';
 	.financial{
@@ -207,7 +199,6 @@
 					@include wh(50%,0.3rem);
 					@include fcs(0.15rem,#fff);
 				}
-
 			}
 		}
 
@@ -218,7 +209,6 @@
 			margin-bottom: 0.2rem;
 
 			
-
 				    flex-direction: column;
 				.com-biao-title{
 					@include font(0.15rem,0.18rem)

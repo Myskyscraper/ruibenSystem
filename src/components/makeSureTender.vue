@@ -1,6 +1,9 @@
 <template>
+
 	<div class="makesureTender-wrap">
+
 		<header>
+
 			<div class="tenderNmae">
 				奔驰A200抵押贷款
 			</div>
@@ -8,6 +11,7 @@
 				￥{{getBiaoData.account}}
 			</div>
 			<p>剩余可投</p>
+
 		</header>
 
 		<section class="inp-body">
@@ -16,8 +20,6 @@
 			<div class="inp-wrap">
 				<input type="text" placeholder="可用余额" v-model="money"> <span>剩余全投</span>
 			</div>
-		
-			
 		</section>
 
 			<p class="inp-warning">投资区间必须大于100元，并以100的整数倍递增</p>
@@ -26,14 +28,14 @@
 			 使用优惠券 <span class="icon-right">></span>
 		</div>
 
+		
 		<div class="sureBtn middlebtn" v-on:click="sureBtn">
 				确认投标
 		</div>
 
 
-
-
 	</div>
+
 </template>
 
 <script >

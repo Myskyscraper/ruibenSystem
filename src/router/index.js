@@ -29,6 +29,8 @@ import AutoTender from '@/page/autoTender.vue'
 
 import AddRulerTender from '@/page/addRulerTender.vue'
 
+import Signing from '@/page/signing.vue'
+import RedTicked from '@/page/redTicked.vue'
 
 Vue.use(Router)
 
@@ -88,8 +90,13 @@ export default new Router({
 		}, {
 			path: '/AddRulerTender',
 			component: AddRulerTender
+		}, {
+			path: '/Signing',
+			component: Signing
+		}, {
+			path: '/RedTicked',
+			component: RedTicked
 		}
-
 
 	],
 	mode: 'hash' //哈希和基础的

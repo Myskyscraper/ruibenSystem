@@ -1,36 +1,41 @@
 <template>
 	<div class="autoTender-wrap">
 
-		
-
 		<div class="ruler-list-wrap" v-for="item in aTenderBack.list">
-
 
 			<dl class="autoTender-title">
 				<dd>
 					￥{{item.minTender}}~￥{{item.maxTender}}
 				</dd>
 
-				<dt>投标额度范围</dt>
+				<dt>投标额度范围{{item.status}}</dt>
 
 				<div class="switch-control">
-					<mt-switch v-model="value1"></mt-switch>
+					<mt-switch v-model="value1" v-on:change="openCLoseRuler(item.id)" v-bind:data-key="item.status"></mt-switch>
 				</div>
 			</dl>
 
-			<div class="spcTender-info"  v-on:click="goAddRulerTender">
+			<div class="spcTender-info"  v-on:click="goAddRulerTender(item.id)">
+
 				<dl>
+
 					<dd>
 						<span>当前排名：</span>{{item.sort}}
 					</dd>
+
 					<dt>
 						<span>有效排名：</span>{{item.realSort}}
 					</dt>
+
 				</dl>
+
+
 				<dl>
+
 					<dd>
 						<span>借款期限：</span>{{item.minMonth}}~{{item.maxMonth}}
 					</dd>
+
 					<dt>
 						<span>成功次数：</span>{{item.tenderTimes}}
 					</dt>
@@ -41,18 +46,16 @@
 
 
 
-
-
-
 		<ul class="bott-list">
-			<li>
-				<span>新增投标规则</span> <i>{{restRuler}}</i>
+			<li v-on:click='addRuler()'>
+				<span>新增投标规则</span> <i>{{restRuler}} &nbsp;></i>
 			</li>
+
 			<li>
 				<span>自动使用奖券</span> <i class="right-btn"><mt-switch v-model="value2"></mt-switch></i>
 			</li>
-			<li>
-				<span>奖券使用规则</span> <i>{{aTenderBack.ticketPrecedence|ticketPreStyle}}》</i>
+			<li v-on:click="goredTicked(aTenderBack.ticketPrecedence)">
+				<span>奖券使用规则</span> <i>{{aTenderBack.ticketPrecedence|ticketPreStyle}} &nbsp;></i>
 			</li>
 
 		</ul>
@@ -64,14 +67,18 @@
 <script >
 import qs from 'qs';
 import router from '../router'
+import { Toast } from 'mint-ui';
 export default{
 	data(){
 		return {
-			value1:false,
+			value1:true,
+			numberValue1:'',
 			value2:false,
 			isOk:false,
 			aTenderBack:{},
-			restRuler:''
+			restRuler:'',
+			redAutoBack:'',
+			message: 'Hello123456'
 		}
 	},
 	filters:{
@@ -96,6 +103,17 @@ export default{
 			console.log(n);
 		}
 	},
+
+	computed: {
+    	// 计算属性的 getter
+    	reversedMessage: function () {
+      		return this.message.split('').reverse().join('')
+  		}
+		//返回数据处理
+		
+
+	},
+	
 	created(){
 		this.$nextTick().then( () =>{
 					this.initData()
@@ -108,6 +126,9 @@ export default{
 	methods:{
 		initData(){
 			var userId = localStorage.userId;
+
+			//银行返回的信息的；
+
 			// ------------------网络请求开始------
 				this.$axios({
 					method:'post',
@@ -131,6 +152,7 @@ export default{
 									if(respObj.payPasswordStatus =='1'){
 										if(respObj.realStatus =='1'){
 											this.isOk = true;
+
 										}else{
 											Toast('请去实名认证');
 										}
@@ -160,6 +182,9 @@ export default{
 				//------------------------- 网络请求结束
 
 
+
+				//投标返回的信息
+
 				// ------------------网络请求开始 -----
 				this.$axios({
 					method:'post',
@@ -173,7 +198,11 @@ export default{
 
 					this.aTenderBack= response.data.data;
 
-					console.log(typeof this.aTenderBack.list)
+					//初始化判断是否开启自动投标
+
+					this.value1 =(this.aTenderBack.ticketStatus =='1')?true:false;
+
+					console.log(this.aTenderBack.ticketStatus)
 
 					this.restRuler = this.aTenderBack.tenderNum-this.aTenderBack.list.length;
 
@@ -184,17 +213,127 @@ export default{
 
 
 				//------------------------- 网络请求结束
+
+
+
+				//获取用户是否自动使用奖券接口
+
+				// ------------------网络请求开始 -----
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v2/reward/auto-use-status',
+					data:qs.stringify({
+						skipSign:1,
+						userId:userId
+					})
+
+				}).then(response =>{
+
+					 this.redAutoBack= response.data.data;
+
+					//初始化判断是否开启自动投标
+
+					this.value2 =(this.redAutoBack.status =='1')?true:false;
+										
+				}).catch(function(){
+					
+
+				})
+
+
+				//------------------------- 网络请求结束
 		},
 
-		goAddRulerTender(){
+		//初始化switchbtn
+
+
+
+		// 增加到投标规则
+
+		goAddRulerTender(item){
 			if(this.isOk ==true){
 				console.log('ok');
-				router.push({path:"/AddRulerTender"});
+				router.push({path:"/AddRulerTender",query:{info:item}});
+			}	
+		},
+
+
+		//增加投标规则
+
+		addRuler(n=null){
+
+
+			if(this.restRuler == '0'){
+					Toast('投标规则已达上限');
+			}else{
+					router.push({path:"/AddRulerTender",query:{info:n}});
 			}
-			
+
+		
+		},
+
+		//开关切换那投标规则
+
+		openCLoseRuler(n){
+
+			console.log(this.value1);
+			console.log(n);
+
+			var userId = localStorage.userId;
+
+			if(this.value1 ==true){
+				// ------------------网络请求开始 -----
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v2/borrow-auto/change-auto-status',//
+					data:qs.stringify({
+						skipSign:1,
+						userId:userId,
+						id:n,
+						status:1
+					})
+
+				}).then(response =>{
+						this.value1 =true;
+
+				}).catch(function(){
+					
+				})
+
+
+				//------------------------- 网络请求结束
+			}else{
+				// ------------------网络请求开始 -----
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v2/borrow-auto/change-auto-status',//
+					data:qs.stringify({
+						skipSign:1,
+						userId:userId,
+						id:n,
+						status:0
+					})
+
+				}).then(response =>{
+
+						this.value1 =false;
+
+										
+				}).catch(function(){
+					
+				})
+				//------------------------- 网络请求结束
+
+			}
+
+		},
+
+		//选项控制红包选项
+
+		goredTicked(n){
+	
+			router.push({path:"/redTicked",query:{info:n}});
 		}
-
-
 
 		
 	}

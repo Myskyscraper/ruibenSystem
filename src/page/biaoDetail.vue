@@ -6,26 +6,26 @@
 
 
 		<div class="cir-Bate-wrap">
+
+
 			<p class="biaoAcount">￥{{alldata.account}}</p>
 
 
 			<div class="progroess-wrap">
+
 				<mt-progress :value="60" :bar-height="5">
 					<div slot="start">0%</div>
 					<div slot="end">100%</div>
 				</mt-progress>
-
+				
 			</div>
-			
-		
 
-			
-		</div>
+		</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 
 		<ul class="biao-basic-intro">
 			<li>
 				<div class="img-wrap biao-date">
-					
+		
 				</div>
 				<p>{{alldata.investPeriod}}</p>
 			</li>
@@ -100,11 +100,13 @@
 			return {
 				selected: '1',
 				alldata:{},
-				isActive:false
+				isActive:false	
 			}
 		},
 		filters:{
+
 			btnStatus(n){
+
 				switch(n){
 					case '0':
 					return '审核中' 
