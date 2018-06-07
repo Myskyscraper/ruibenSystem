@@ -11,7 +11,7 @@
 				<dt>投标额度范围{{item.status}}</dt>
 
 				<div class="switch-control">
-					<mt-switch v-model="value1" v-on:change="openCLoseRuler(item.id)" v-bind:data-key="item.status"></mt-switch>
+					<mt-switch v-model="value1" v-on:change="openCLoseRuler(item.id)" v-bind:data-key="item.status" ></mt-switch>
 				</div>
 			</dl>
 
@@ -117,6 +117,7 @@ export default{
 	created(){
 		this.$nextTick().then( () =>{
 					this.initData()
+					
 			})
 	},
 
@@ -200,7 +201,20 @@ export default{
 
 					//初始化判断是否开启自动投标
 
-					this.value1 =(this.aTenderBack.ticketStatus =='1')?true:false;
+					var len = this.aTenderBack.list.length;
+
+					var obj = this.aTenderBack.list;
+					
+					for(var i=0;i<len;i++){
+
+						if(obj[i].status =='0'){
+							this.value1 = false;
+						}else{
+							this.value1 =true;
+						}
+
+					}
+					
 
 					console.log(this.aTenderBack.ticketStatus)
 
@@ -334,6 +348,8 @@ export default{
 	
 			router.push({path:"/redTicked",query:{info:n}});
 		}
+
+		//
 
 		
 	}
