@@ -11,7 +11,7 @@
 				<dt>投标额度范围{{item.status}}</dt>
 
 				<div class="switch-control">
-					<mt-switch v-model="value1" v-on:change="openCLoseRuler(item.id)" v-bind:data-key="item.status" ></mt-switch>
+					
 				</div>
 			</dl>
 
@@ -43,8 +43,6 @@
 
 			</div>
 		</div>
-
-
 
 		<ul class="bott-list">
 			<li v-on:click='addRuler()'>

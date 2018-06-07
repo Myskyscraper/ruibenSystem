@@ -32,6 +32,8 @@ import AddRulerTender from '@/page/addRulerTender.vue'
 import Signing from '@/page/signing.vue'
 import RedTicked from '@/page/redTicked.vue'
 
+import Switch from '@/components/switch.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -96,6 +98,9 @@ export default new Router({
 		}, {
 			path: '/RedTicked',
 			component: RedTicked
+		}, {
+			path: '/Switch',
+			component: Switch
 		}
 
 	],
