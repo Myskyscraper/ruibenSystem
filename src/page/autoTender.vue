@@ -1,17 +1,21 @@
 <template>
 	<div class="autoTender-wrap">
 
-		<div class="ruler-list-wrap" v-for="item in aTenderBack.list">
+		<div class="ruler-list-wrap" v-for="item in aTenderBack.list" v-if='isRouterAlive'>
 
 			<dl class="autoTender-title">
 				<dd>
 					￥{{item.minTender}}~￥{{item.maxTender}}
 				</dd>
 
-				<dt>投标额度范围{{item.status}}</dt>
+				<dt>投标额度范围</dt>
 
 				<div class="switch-control">
-					
+					<div class="switch-wrap">
+						<div class="switch-content" :class="{'switchOpen':((item.status == '1')? true:false)}" v-on:click="changeStatus(item.status,item.id)" >
+							<span class="switch-audo"></span>
+						</div>
+					</div>
 				</div>
 			</dl>
 
@@ -50,7 +54,7 @@
 			</li>
 
 			<li>
-				<span>自动使用奖券</span> <i class="right-btn"><mt-switch v-model="value2"></mt-switch></i>
+				<span>自动使用奖券</span> <i class="right-btn">  <mt-switch v-model="autoTicket" change="isAutoUseTicket"></mt-switch></i>
 			</li>
 			<li v-on:click="goredTicked(aTenderBack.ticketPrecedence)">
 				<span>奖券使用规则</span> <i>{{aTenderBack.ticketPrecedence|ticketPreStyle}} &nbsp;></i>
@@ -69,14 +73,14 @@ import { Toast } from 'mint-ui';
 export default{
 	data(){
 		return {
-			value1:true,
 			numberValue1:'',
-			value2:false,
+			autoTicket:false,
 			isOk:false,
 			aTenderBack:{},
 			restRuler:'',
 			redAutoBack:'',
-			message: 'Hello123456'
+			message: 'Hello123456',
+			isRouterAlive:true
 		}
 	},
 	filters:{
@@ -120,6 +124,15 @@ export default{
 	},
 
 	mounted(){
+		
+	},
+	updated(){
+		 this.$nextTick(function () {
+   			this.changeStatus()
+  		})
+	},
+
+	watch:{
 		
 	},
 	methods:{
@@ -196,23 +209,6 @@ export default{
 				}).then(response =>{
 
 					this.aTenderBack= response.data.data;
-
-					//初始化判断是否开启自动投标
-
-					var len = this.aTenderBack.list.length;
-
-					var obj = this.aTenderBack.list;
-					
-					for(var i=0;i<len;i++){
-
-						if(obj[i].status =='0'){
-							this.value1 = false;
-						}else{
-							this.value1 =true;
-						}
-
-					}
-					
 
 					console.log(this.aTenderBack.ticketStatus)
 
@@ -345,12 +341,102 @@ export default{
 		goredTicked(n){
 	
 			router.push({path:"/redTicked",query:{info:n}});
+		},
+
+		//修改用户是否自动使用奖券
+
+		isAutoUseTicket(){
+
+
+
+							var userId = localStorage.userId;
+
+							console.log(userId)
+
+							// ------------------网络请求开始 -----
+							this.$axios({
+								method:'post',
+								url:'http://121.40.32.223:8081/v2/reward/update-auto-use',
+								data:qs.stringify({
+									skipSign:1,
+									userId:userId
+								})
+
+							}).then(response =>{
+
+								//this.upredAutoBack= response.data.data;
+							var xxx = response.data.data;
+
+							console.log(xxx);
+
+					//初始化判断是否开启自动投标
+
+					// this.value2 =(this.upredAutoBack.data ==true)?true:false;
+
+					// if(this.upredAutoBack.data ==true){
+					// 	if(this.value2 =='0'){
+					// 		this.value2 ="1";
+					// 	}else{
+					// 		this.value2 ="0";
+					// 	}
+					// }
+
+				}).catch(function(){
+					
+
+				})
+
+
+				//------------------------- 网络请求结束
+
+
+			},
+
+		//投标开关按钮
+
+		changeStatus(n,id){
+
+
+			var x = null;
+			var userId = localStorage.userId;
+			if(n=='0'){
+				x = '0';
+			}else{
+				x ='1';
+			}
+
+			// ------------------网络请求开始 -----
+			this.$axios({
+				method:'post',
+			url:'http://121.40.32.223:8081/v2/borrow-auto/change-auto-status',//
+			data:qs.stringify({
+				skipSign:1,
+				userId:userId,
+				id:id,
+				status:x
+			})
+			}).then(response =>{
+				this.value1 =true;
+
+				console.log('ok');
+			
+
+
+			}).catch(function(){
+				
+			})
+			//------------------------- 网络请求结束
+
+			
+			
+
+			
+			
+
+			}
+
+
 		}
-
-		//
-
-		
-	}
 }
 
 
@@ -388,6 +474,38 @@ export default{
 				right:0.05rem;
 				top:0;
 				@include wh(0.52rem,0.32rem);
+
+				.switch-wrap{
+					font-size:0.16rem;
+					width:100%;
+					height:0.4rem;
+					.switch-content{
+						width:0.45rem;
+						height:0.25rem;
+						border-radius: 0.18rem;
+						position:relative;
+						border:0.01rem solid #f5f5f5;
+						.switch-audo{
+							display:block;
+							position:absolute;
+							left:0;
+							top: -0.01rem;
+							width:0.25rem;
+							height:0.25rem;
+							background:#fff;
+							border-radius:50%;
+							border:0.01rem solid #f5f5f5;
+							transition: left 0.2s ;
+						}
+					}
+
+					.switchOpen{
+						background:#64bd63;
+						.switch-audo{
+							left:0.19rem;
+						}
+					}
+				}
 			}
 
 
