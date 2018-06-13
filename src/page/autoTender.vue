@@ -12,7 +12,7 @@
 
 				<div class="switch-control">
 					<div class="switch-wrap">
-						<div class="switch-content" :class="{'switchOpen':((item.status == '1')? true:false)}" v-on:click="changeStatus(item.status,item.id)" >
+						<div class="switch-content" :class="{'switchOpen':((item.status == '1')? true:false)}" v-on:click="fixedStatus(item.status,item.id)" >
 							<span class="switch-audo"></span>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 			</li>
 
 			<li>
-				<span>自动使用奖券</span> <i class="right-btn">  <mt-switch v-model="autoTicket" change="isAutoUseTicket"></mt-switch></i>
+				<span>自动使用奖券</span> <i class="right-btn">  <mt-switch v-model="autoTicket" @change="isAutoUseTicket"></mt-switch></i>
 			</li>
 			<li v-on:click="goredTicked(aTenderBack.ticketPrecedence)">
 				<span>奖券使用规则</span> <i>{{aTenderBack.ticketPrecedence|ticketPreStyle}} &nbsp;></i>
@@ -126,11 +126,7 @@ export default{
 	mounted(){
 		
 	},
-	updated(){
-		 this.$nextTick(function () {
-   			this.changeStatus()
-  		})
-	},
+
 
 	watch:{
 		
@@ -349,37 +345,25 @@ export default{
 
 
 
-							var userId = localStorage.userId;
+			var userId = localStorage.userId;
 
-							console.log(userId)
+			console.log(userId)
 
-							// ------------------网络请求开始 -----
-							this.$axios({
-								method:'post',
-								url:'http://121.40.32.223:8081/v2/reward/update-auto-use',
-								data:qs.stringify({
-									skipSign:1,
-									userId:userId
-								})
+				// ------------------网络请求开始 -----
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v2/reward/update-auto-use',
+					data:qs.stringify({
+						skipSign:1,
+						userId:userId
+					})
 
-							}).then(response =>{
+				}).then(response =>{
 
-								//this.upredAutoBack= response.data.data;
-							var xxx = response.data.data;
+					//this.upredAutoBack= response.data.data;
+					var xxx = response.data.data;
 
-							console.log(xxx);
-
-					//初始化判断是否开启自动投标
-
-					// this.value2 =(this.upredAutoBack.data ==true)?true:false;
-
-					// if(this.upredAutoBack.data ==true){
-					// 	if(this.value2 =='0'){
-					// 		this.value2 ="1";
-					// 	}else{
-					// 		this.value2 ="0";
-					// 	}
-					// }
+					
 
 				}).catch(function(){
 					
@@ -394,7 +378,7 @@ export default{
 
 		//投标开关按钮
 
-		changeStatus(n,id){
+		fixedStatus(n,id){
 
 
 			var x = null;
