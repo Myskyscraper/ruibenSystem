@@ -34,6 +34,10 @@ import RedTicked from '@/page/redTicked.vue'
 
 import Switch from '@/components/switch.vue'
 
+import Withdraw from '@/page/withdraw.vue'
+
+import Recharge from '@/page/recharge.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -101,6 +105,12 @@ export default new Router({
 		}, {
 			path: '/Switch',
 			component: Switch
+		}, {
+			path: '/Withdraw',
+			component: Withdraw
+		}, {
+			path: '/Recharge',
+			component: Recharge
 		}
 
 	],

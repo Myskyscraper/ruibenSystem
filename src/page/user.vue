@@ -33,8 +33,8 @@
 
 
 		<div class="per-btn-wrap">
-			<span>提现</span>
-			<span>充值</span>
+			<span v-on:click="goWithdraw">提现</span>
+			<span v-on:click="goRecharge">充值</span>
 		</div>
 
 		<ul class="per-list-table">
@@ -108,7 +108,8 @@
 		data(){
 			return {
 				alldata:{},
-				isFlag :true
+				isFlag :true,
+				moneyInfo:{}
 			}
 		},
 		components:{
@@ -121,6 +122,7 @@
 		created(){
 			this.$nextTick().then( () =>{
 				this.initData();
+				this.propertyInfo();
 			})
 		},
 		methods:{
@@ -168,6 +170,35 @@
 				//----------------- 
 			},
 
+
+			// 我的理财数据
+			
+			propertyInfo(){
+				var userId = localStorage.userId;
+				// ------------------网络请求开始 -----
+				this.$axios({
+					method:'post',
+					url:'http://121.40.32.223:8081/v3/member/property',//自动投标返回信息
+					data:qs.stringify({
+						skipSign:1,
+						userId:userId
+					})
+
+				}).then(response =>{
+				
+					this.moneyInfo = response.data.data;
+
+				}).catch(function(){
+					
+				})
+
+				//------------------------- 网络请求结束
+
+
+			},
+
+
+
 			LogOut(){
 				console.log('logout');
 				localStorage.userId =null;
@@ -190,6 +221,13 @@
 				}else{
 					router.push({path:"/AutoTender"})
 				}
+			},
+			goWithdraw(){
+				//router.push({path:"/Withdraw"})
+				router.push({path:"/Withdraw", query:{info:this.moneyInfo}})
+			},
+			goRecharge(){
+				router.push({path:"/Recharge", query:{info:this.moneyInfo}})
 			}
 		}
 	}
