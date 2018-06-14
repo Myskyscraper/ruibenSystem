@@ -12,7 +12,7 @@
 
 				<div class="switch-control">
 					<div class="switch-wrap">
-						<div class="switch-content" :class="{'switchOpen':((item.status == '1')? true:false)}" v-on:click="fixedStatus(item.status,item.id)" >
+						<div class="switch-content" :class="{'switchOpen':((item.status == '1')? true:false)}" v-on:click="fixedStatus(item.status,item.id,$event)" >
 							<span class="switch-audo"></span>
 						</div>
 					</div>
@@ -241,6 +241,7 @@ export default{
 										
 				}).catch(function(){
 					
+	
 
 				})
 
@@ -363,10 +364,10 @@ export default{
 					//this.upredAutoBack= response.data.data;
 					var xxx = response.data.data;
 
-					
+
 
 				}).catch(function(){
-					
+
 
 				})
 
@@ -378,7 +379,7 @@ export default{
 
 		//投标开关按钮
 
-		fixedStatus(n,id){
+		fixedStatus(n,id,e){
 
 
 			var x = null;
@@ -387,6 +388,13 @@ export default{
 				x = '0';
 			}else{
 				x ='1';
+			}
+
+			let el=e.target;
+			if(el.classList.contains("switchOpen")){
+				el.classList.remove("switchOpen")
+			}else{
+				el.classList.add("switchOpen")
 			}
 
 			// ------------------网络请求开始 -----
