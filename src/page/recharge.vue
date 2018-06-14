@@ -4,6 +4,7 @@
 		<!-- 开始复制 -->
 
 		<div>  
+			
 			<div class="nav">  
 				<mt-button size="small" @click.native.prevent="active = 'tab-container1'">快捷充值</mt-button>  
 				<mt-button size="small" @click.native.prevent="active = 'tab-container2'">跨行转账</mt-button>   
@@ -11,7 +12,9 @@
 
 			<div class="page-tab-container"> 
 
-				<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>  
+
+				<mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
+
 
 					<mt-tab-container-item id="tab-container1">  
 
@@ -31,7 +34,11 @@
 
 							<ul  class="box-inp box-two-column">
 								<li>
-									<span >充值金额：</span> <i ></i>
+									<span >充值金额：</span>
+										
+										<input type="text">
+
+									 <i ></i>
 								</li>
 								<li >
 									<span >预留手机号：{{reback.cardMobile}}</span> 
@@ -139,6 +146,7 @@
 				})
 
 
+
 				//------------------------- 网络请求结束
 			}
 		}
@@ -195,6 +203,7 @@
 
 		.fastJiao-wrap{
 			.mainbox{
+
 				@include wh(100%,0.8rem);
 				box-sizing:border-box;
 				padding-top:0.15rem;
@@ -241,6 +250,10 @@
 				li{
 					span{
 						color:#A1BDE5;
+					}
+					input{
+						border:none;
+						outline:none;
 					}
 				}
 			}

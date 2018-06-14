@@ -70,7 +70,7 @@ export default{
 			reback:{},
 			propertyMoney:{},
 			withdrawNumber:null,
-			feeBack:{}
+			feeBack:null
 		}
 	},
 	filters:{

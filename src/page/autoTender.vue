@@ -74,7 +74,7 @@ export default{
 	data(){
 		return {
 			numberValue1:'',
-			autoTicket:false,
+			autoTicket:null,
 			isOk:false,
 			aTenderBack:{},
 			restRuler:'',
@@ -210,6 +210,8 @@ export default{
 
 					this.restRuler = this.aTenderBack.tenderNum-this.aTenderBack.list.length;
 
+					this.autoTicket =(this.aTenderBack.ticketStatus =='1')?true:false;
+
 										
 				}).catch(function(){
 					
@@ -237,7 +239,12 @@ export default{
 
 					//初始化判断是否开启自动投标
 
-					this.value2 =(this.redAutoBack.status =='1')?true:false;
+
+					console.log("嘻嘻response下"+this.redAutoBack.ticketStatus)
+
+					this.autoTicket =(this.redAutoBack.ticketStatus =='1')?true:false;
+
+					console.log("嘻嘻I下"+this.autoTicket)
 										
 				}).catch(function(){
 					
@@ -343,7 +350,6 @@ export default{
 		//修改用户是否自动使用奖券
 
 		isAutoUseTicket(){
-
 
 
 			var userId = localStorage.userId;
