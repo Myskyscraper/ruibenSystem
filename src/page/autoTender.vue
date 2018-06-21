@@ -16,7 +16,7 @@
 							<span class="switch-audo"></span>
 						</div>
 					</div>
-				</div>
+				</div> 
 			</dl>
 
 			<div class="spcTender-info"  v-on:click="goAddRulerTender(item.id)">

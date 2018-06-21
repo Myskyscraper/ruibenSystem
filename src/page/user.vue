@@ -130,11 +130,10 @@
 			initData(){
 				Indicator.open('Loading...');
 				var userId = localStorage.userId;
-				console.log('ok1');
-				console.log(this.alldata);
+				
 
 				if(userId =='null'){
-					console.log('ok2');
+				
 					this.alldata ={
 						avatar:'../images/ic_4me_catch.png',
 						userMoney:'---',
@@ -148,7 +147,7 @@
 					this.isFlag = false;
 					this.$axios({
 						method:'post',
-						url:'http://121.40.32.223:8081/v2/member/member-info',
+						url:'http://121.40.32.223:8081/v3/member/member-info',
 						data:qs.stringify({
 							skipSign:1,
 							userId:userId
@@ -200,7 +199,7 @@
 
 
 			LogOut(){
-				console.log('logout');
+			
 				localStorage.userId =null;
 				localStorage.userInfo ={};
 				this.isFlag = false;
