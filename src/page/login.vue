@@ -19,7 +19,6 @@
 
 			</section>
 
-			
 			<section class="input_container input_btn">
 				
 				<button v-on:click="loginBtn">登陆</button>
@@ -36,7 +35,7 @@
 <script >
 	import router from '../router'
 	import qs from 'qs';
-
+	import { Toast } from 'mint-ui';
 	export default{
 		data(){
 			return {
@@ -56,7 +55,7 @@
 		methods:{
 			
 			loginBtn(){
-				console.log(typeof this.username);
+
 				this.$axios({
 					method:'post',
 					url:'http://121.40.32.223:8081/v2/member/login',
@@ -66,8 +65,14 @@
 						password:this.password
 					})
 				}).then( response =>{
-					localStorage.userId = response.data.data.userId;
-					router.push({path:'./user'})
+					 var resp = response.data.msg
+					if(resp =="success"){
+						router.push({path:'./user'})
+						localStorage.userId = response.data.data.userId;
+					}else{
+						Toast(resp)
+					}
+					
 				})
 			}
 		}

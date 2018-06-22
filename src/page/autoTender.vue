@@ -160,27 +160,32 @@ export default{
 									if(respObj.payPasswordStatus =='1'){
 										if(respObj.realStatus =='1'){
 											this.isOk = true;
-
 										}else{
 											Toast('请去实名认证');
+											router.go(-1);
 										}
 
 									}else{	
 										Toast('请去设置交易密码');
+										router.go(-1);
 									}
 
 								}else{
 									Toast('请去开启自动投标签约');
+									router.go(-1);
 								}
 							}else{
 								Toast('请去开启自动债转签约');
+								router.go(-1);
 							}
 
 						}else{
 							Toast('请去添加银行卡');
+							router.go(-1);
 						}
 					}else{
 						Toast('请去添加银行卡');
+						router.go(-1);
 					}
 					
 				}).catch(function(){
