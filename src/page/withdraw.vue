@@ -60,6 +60,7 @@
 			
 
 		</div>
+	
 
  
 	</div>
@@ -150,10 +151,6 @@ export default{
 				this.propertyMoney = this.$route.query.info;
 
 
-
-				
-				
-
 			},
 			//提现手续费
 			feeLook(){
@@ -176,6 +173,7 @@ export default{
 				this.feeBack = response.data.data;
 
 					console.log(this.feeBack);
+
 
 
 				}).catch(function(){
