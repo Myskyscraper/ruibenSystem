@@ -29,8 +29,9 @@
 
 				<div class="home_notice">
 
-					<div class="swiper-container">
-						<div class="swiper-wrapper">
+					<div class="swiper-container" >
+
+						<div class="swiper-wrapper"    >
 
 							<div class="swiper-slide" v-for="item in newsPost" style="height:0.3rem;">
 								{{item.name}}
@@ -216,12 +217,17 @@
 			this.$nextTick()
 			.then(() =>{
 				this.initData();
-				this.swiperFun();
+			
 			})
 
 			
 		},
 		mounted(){
+			this.$nextTick()
+			.then(() =>{
+			
+				this.swiperFun();
+			})
 
 		
 			
@@ -265,7 +271,7 @@
 
 					new Swiper('.home_notice .swiper-container', {
 						direction : 'vertical',
-						loop: true,
+					
 						autoplay:true,
 						observer:true, //修改swiper自己或子元素时，自动初始化swiper
     					observeParents:true,//修改swiper的父元素时，自动初始化swiper

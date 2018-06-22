@@ -1,6 +1,7 @@
 <template>
 	<div class="find">
 
+	
 
 		<!-- 开始复制 -->
 
@@ -67,6 +68,7 @@
 	import qs from 'qs';
 	import Foot from '../components/foot.vue'
 	import { TabContainer, TabContainerItem } from 'mint-ui';
+	import BackBtn from '../components/backBtn.vue'
 	export default{
 		data(){
 			return {
@@ -81,7 +83,8 @@
 			})
 		},
 		components:{
-			Foot
+			Foot,
+			BackBtn
 		},
 		methods:{
 			initData(){

@@ -2,13 +2,16 @@
 
 	<div class="biaoDetailBox">
 
-		<header>{{alldata.name}}</header>
+		<header>
+		{{alldata.name}}
+		<BackBtn></BackBtn>
+		</header>
 
 
 		<div class="cir-Bate-wrap">
 
 
-			<p class="biaoAcount">￥{{alldata.account}}</p>
+			<p class="biaoAcount">￥{{alldata.surplusAccount}}</p>
 
 
 			<div class="progroess-wrap">
@@ -93,6 +96,8 @@
 
 	import router from '../router'
 
+	import BackBtn from '../components/backBtn.vue'
+
 	import Progress from '../components/progress.vue'
 	
 	export default {
@@ -131,7 +136,8 @@
 			}
 		},
 		components:{
-			Progress
+			Progress,
+			BackBtn
 		},
 		created(){
 			this.$nextTick().then( () =>{
@@ -199,7 +205,7 @@
 		header{
 			@include fcs(0.18rem,#fff);
 			background:#397BE6;
-			padding:0.08rem;
+			padding:0.12rem;
 			text-align:center;
 		}
 		.cir-Bate-wrap{

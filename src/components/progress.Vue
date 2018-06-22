@@ -4,7 +4,7 @@
 		
 		<div class="progress-box">
 
-			<span class="progressNumber">{{data}}</span>
+			<span class="progressNumber">{{data}}%</span>
 
 			<div class="progress" v-bind:style="'width:'+data+'%;'"></div>
 		</div>

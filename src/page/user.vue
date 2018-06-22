@@ -10,7 +10,7 @@
 			{{alldata.username}}
 		</header>
 
-
+		
 
 		<div class="person-info-wrap">
 
@@ -92,6 +92,7 @@
 			
 		</ul>
 
+
 		 <Foot></Foot>
 	</div>
 </template>
@@ -103,7 +104,7 @@
 	import Foot from '../components/foot.vue';
 	import router from '../router'
 	import ToastLoginRegister from '@/page/toastLoginRegister'
-
+	import BackBtn from '../components/backBtn.vue'
 	export default{
 		data(){
 			return {
@@ -114,7 +115,8 @@
 		},
 		components:{
 			Foot,
-			ToastLoginRegister
+			ToastLoginRegister,
+			BackBtn
 		},
 		beforeCreate(){
 			Indicator.open('Loading...');
@@ -211,6 +213,8 @@
 					collectCapital:'---',
 					isFlag:true
 				}
+
+				router.go(0);
 				
 			},
 

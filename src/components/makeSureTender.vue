@@ -1,14 +1,16 @@
 <template>
 
 	<div class="makesureTender-wrap">
-
+		
+		
 		<header>
+			<BackBtn></BackBtn>
 
 			<div class="tenderNmae">
 				奔驰A200抵押贷款
 			</div>
 			<div class="tenderAmount">
-				￥{{getBiaoData.account}}
+				￥{{getBiaoData.surplusAccount}}
 			</div>
 			<p>剩余可投</p>
 
@@ -40,12 +42,19 @@
 
 <script >
 import qs from 'qs';
+import router from '../router'
+import BackBtn from './backBtn.vue';
+
+import { Toast } from 'mint-ui';
 export default{
 	data(){
 		return {
 			getBiaoData:{},
 			money:''
 		}
+	},
+	components:{
+		BackBtn
 	},
 	created(){
 		
@@ -60,7 +69,6 @@ export default{
 	methods:{
 
 		initData(){
-
 			this.getBiaoData =(this.$route.query.info);
 		},
 
@@ -81,13 +89,21 @@ export default{
 				}).then(response =>{
 					this.alldata = response.data.data;
 					console.log( this.alldata);
+
+					Toast('投标成功');
+
+					router.push({path:"/Home"})
 					
+
 				}).catch(function(){
 					
 				})
 
 				//------------------------- 网络请求结束
 			
+		},
+		getBiaoInfo(){
+
 		}
 	}
 
@@ -107,11 +123,12 @@ export default{
 
 .makesureTender-wrap{
 	font-size:0.12rem;
+
 	header{
 		box-sizing:border-box;
-		@include wh(100%,0.96rem);
+		@include wh(100%,1.36rem);
 		background:#397BE6;
-		padding:0.1rem 0.15rem;
+		padding:0.4rem 0.15rem;
 		.tenderNmae{
 			@include fcs(0.14rem,#fff);
 		}

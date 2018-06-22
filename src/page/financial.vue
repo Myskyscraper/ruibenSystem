@@ -107,7 +107,7 @@
 			return {
 				selected: '1',
 				alldata:[] ,
-				currentpage:0
+				currentpage:1
 			}
 		},
 		created(){

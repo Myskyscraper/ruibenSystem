@@ -1,4 +1,5 @@
 import Vue from 'vue'
+
 import Router from 'vue-router'
 
 
@@ -39,6 +40,8 @@ import Withdraw from '@/page/withdraw.vue'
 import Recharge from '@/page/recharge.vue'
 
 import Bank from '@/page/bank.vue'
+
+
 
 Vue.use(Router)
 
@@ -117,8 +120,6 @@ export default new Router({
 			path: '/Bank',
 			component: Bank
 		}
-
-
 	],
 	mode: 'hash' //哈希和基础的
 	//linkActiveClass:
