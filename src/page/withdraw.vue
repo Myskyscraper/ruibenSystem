@@ -39,7 +39,7 @@
 
 		<dl class="userrest-box getMoney">
 			<dd>实际到账：</dd>
-			<dt>￥{{withdrawNumber}}</dt>
+			<dt>￥{{withdrawNumber -feeBack}}</dt>
 		</dl>
 
 		<ul class="box-inp box-two-column">
@@ -58,10 +58,8 @@
 		</div>
 
 
-		<div class="withdrawOther" v-bind:data='formData'>
-			
-
-		</div>
+		
+		
 	
 
  
@@ -78,6 +76,8 @@ import qs from 'qs';
 import router from '../router';
 
 import BackBtn from '../components/backBtn.vue'
+
+import { Toast } from 'mint-ui';
 
 export default{
 	data(){
@@ -121,12 +121,11 @@ export default{
 	created(){
 		this.$nextTick().then( () =>{
 					this.initData()
-
-
-					
 			})
 	},
 	methods:{
+
+
 
 			//银行卡信息
 
@@ -199,39 +198,23 @@ export default{
 
 
 				// ------------------网络请求开始 -----
-
-				this.$axios.get('http://121.40.32.223:8081/v3/account/withdraw', {  
-				    params : { //请求参数  
-				    	skipSign:1,
-				 		userId:userId,
-				 		txAmount:this.withdrawNumber,
-				 		txFee:this.feeBack
-				    }  
-				}).then(function(response){  
-
-					var txt = response.data;
-
-					console.log(txt);
-	
-					this.formData = txt;
-
+				if(this.withdrawNumber!='null'||this.feeBack !='null'){
+		
+					//window.location.href="http://121.40.32.223:8081/v3/account/withdraw?skipSign=1&userId="+userId+"&txAmount="+this.withdrawNumber+"&txFee="+this.feeBack+""
 					
-				   
-				}).catch(function(response){  
-				     
-				})  
+					console.log(this.withdrawNumber)
+				}else{
+					Toast('请填写正确信息')
+				}
+
+				
 
 
 				//------------------------- 网络请求结束
 
-				// this.banksp= '我更新啦'
-
-
-				this.formData = `<form action="https://access.credit2go.cn/escrow/p2p/page/withdraw" id="form" method="post"><input type='hidden' name='version' value='10'><input type='hidden' name='txCode' value='withdraw'><input type='hidden' name='instCode' value='00520001'><input type='hidden' name='bankCode' value='30050000'><input type='hidden' name='txDate' value='20180619'><input type='hidden' name='txTime' value='111039'><input type='hidden' name='seqNo' value='113944'><input type='hidden' name='channel' value='000002'><input type='hidden' name='accountId' value='6212461480000000886'><input type='hidden' name='idType' value='01'><input type='hidden' name='idNo' value='120102198412189949'><input type='hidden' name='name' value='伊悦'><input type='hidden' name='mobile' value='17621056805'><input type='hidden' name='cardNo' value='6228481234567890010'><input type='hidden' name='txAmount' value='998.00'><input type='hidden' name='txFee' value='2.00'><input type='hidden' name='currency' value='156'><input type='hidden' name='userIP' value='180.167.84.162'><input type='hidden' name='forgotPwdUrl' value='http://121.40.32.223:8088/v3/member-center/pay-password-reset'><input type='hidden' name='retUrl' value='http://121.40.32.223:8088/m.g'><input type='hidden' name='notifyUrl' value='http://121.40.32.223:8088/notify/withdraw'><input type='hidden' name='acqRes' value='47459'><input type='hidden' name='sign' value='YrJ4Z0o+JFtw9fFUmbH+/v5iM9fqNTNNeJFb+kfeIyek2ArZpqfhmE1t5yy6mf9zXPExtGMzK9tbyxCB+45YLnqHsb8BFa1zMhAGUK3QtBSpnb//RcBJY1ZWQ5F73GH1f9UI7BKqFIOUBO3QN2RrTkAumykgzaDTRSVSecNdgzT/Hpnx5hJefRA7+9I4u3U5/xx5aaO/yaYlCT8en8z4Sp2jTsjmN1TUtjh3hKzlOaO1rpAz0Oq99fXEXwCE6MDTdmTkYxiYN8ZA3KU5b850u5uEN5Jbb3yI7XI9XjqFe894cUDgn+ADBxGYqfjqBnIybKNLGsYDURZ8rl+zQR8Vew=='><input style='display:none' type='submit' name='提交'></form><div style='background: #f5f5f5; margin-top: 50%;margin-bottom: 50%;'>
-    			 <span style='font-size: 16px;display: block;text-align: center;'>正在跳转中...</span>
-					</div>`;
-
 			}
+
+			
 
 
 		}

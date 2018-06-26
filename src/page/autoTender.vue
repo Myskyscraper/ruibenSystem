@@ -118,8 +118,6 @@ export default{
       		return this.message.split('').reverse().join('')
   		}
 		//返回数据处理
-		
-
 	},
 	components:{
 			BackBtn
