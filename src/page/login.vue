@@ -67,8 +67,9 @@
 				}).then( response =>{
 					 var resp = response.data.msg
 					if(resp =="success"){
-						router.push({path:'./user'})
 						localStorage.userId = response.data.data.userId;
+						router.push({path:'./user'})
+						
 					}else{
 						Toast(resp)
 					}

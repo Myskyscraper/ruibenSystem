@@ -4,6 +4,8 @@
 		<div class="withdrawLocal">
 
 		<div class="widthdraw-head">
+
+			<BackBtn></BackBtn>
 						
 			<div class="mainbox">
 				<span class="bank-logo">
@@ -75,6 +77,8 @@ import qs from 'qs';
 
 import router from '../router';
 
+import BackBtn from '../components/backBtn.vue'
+
 export default{
 	data(){
 		return {
@@ -109,6 +113,10 @@ export default{
 
 
 	},
+
+	components:{
+			BackBtn
+		},
 
 	created(){
 		this.$nextTick().then( () =>{

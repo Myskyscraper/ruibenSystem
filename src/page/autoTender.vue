@@ -1,6 +1,11 @@
 <template>
 	<div class="autoTender-wrap">
 
+		<div class="back-wrap">
+			<BackBtn></BackBtn>
+
+		</div>
+
 		<div class="ruler-list-wrap" v-for="item in aTenderBack.list" v-if='isRouterAlive'>
 
 			<dl class="autoTender-title">
@@ -69,6 +74,7 @@
 <script >
 import qs from 'qs';
 import router from '../router'
+import BackBtn from '../components/backBtn.vue'
 import { Toast } from 'mint-ui';
 export default{
 	data(){
@@ -115,6 +121,9 @@ export default{
 		
 
 	},
+	components:{
+			BackBtn
+		},
 	
 	created(){
 		this.$nextTick().then( () =>{
@@ -453,7 +462,11 @@ export default{
 
 .autoTender-wrap{
 	font-size:0.12rem;
-	padding-top:0.15rem;
+	.back-wrap{
+		height:0.4rem;
+		background:#2E6EC4;
+		margin-bottom:0.15rem;
+	}
 	.ruler-list-wrap{
 		width:90%;
 		background:#fff;

@@ -1,6 +1,7 @@
 <template>
 	<div class="recharge-wrap">
 
+		<BackBtn></BackBtn>
 		<!-- 开始复制 -->
 
 		<div>  
@@ -107,6 +108,8 @@
 
 	import router from '../router';
 
+	import BackBtn from '../components/backBtn.vue'
+
 	export default{
 		data(){
 			return {
@@ -114,6 +117,10 @@
 				active: 'tab-container1',
 				reback :{}
 			}
+		},
+
+		components:{
+			BackBtn
 		},
 		created(){
 			this.$nextTick().then( () =>{
