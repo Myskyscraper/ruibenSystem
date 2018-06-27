@@ -13,7 +13,7 @@
 
 				</span>
 				<p class="bank-name">{{reback.bankName}}</p>
-				<p class="bank-number">{{reback.bankCard|hideNumber}}</p>
+				<p class="bank-number">{{reback.hideBankCard}}</p>
 			</div>
 
 		</div>
@@ -145,19 +145,44 @@ export default{
 				
 					this.reback = response.data.data;	
 
-					console.log(this.reback.bankCard.length);
+					console.log('111');
 
 
 				}).catch(function(){
 					
 				})
 
+				//------------------------- 网络请求结束
+
+				//  网路刷新后银行卡金额
+
+					
+				if(typeof this.propertyMoney =='object'){
+
+					console.log('1');
+
+					// ------------------网络请求开始 -----
+					this.$axios({
+						method:'post',
+					url:'http://121.40.32.223:8081/v3/member/property',//自动投标返回信息
+					data:qs.stringify({
+						skipSign:1,
+						userId:userId
+					})
+
+					}).then(response =>{
+						this.propertyMoney  = response.data.data;
+
+					}).catch(function(){
+
+					})
 
 				//------------------------- 网络请求结束
 
-				this.propertyMoney = this.$route.query.info;
-
-
+				}else{
+					console.log('o2');
+					this.propertyMoney = this.$route.query.info;
+				}
 			},
 			//提现手续费
 			feeLook(){
@@ -196,18 +221,19 @@ export default{
 			widthDrawBtn(){
 				var userId = localStorage.userId;
 
-
 				// ------------------网络请求开始 -----
-				if(this.withdrawNumber!='null'||this.feeBack !='null'){
-		
-					//window.location.href="http://121.40.32.223:8081/v3/account/withdraw?skipSign=1&userId="+userId+"&txAmount="+this.withdrawNumber+"&txFee="+this.feeBack+""
-					
-					console.log(this.withdrawNumber)
+				
+				if(this.withdrawNumber==null){
+					Toast('请输入提现金额')
 				}else{
-					Toast('请填写正确信息')
+					if(this.feeBack ==null){
+						Toast('请输入手续费')
+					}else{
+						window.location.href="http://121.40.32.223:8081/v3/account/withdraw?skipSign=1&userId="+userId+"&txAmount="+this.withdrawNumber+"&txFee="+this.feeBack+""
+
+					}
 				}
 
-				
 
 
 				//------------------------- 网络请求结束

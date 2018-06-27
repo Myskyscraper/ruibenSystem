@@ -226,7 +226,6 @@
 				}
 			},
 			goWithdraw(){
-				//router.push({path:"/Withdraw"})
 				router.push({path:"/Withdraw", query:{info:this.moneyInfo}})
 			},
 			goRecharge(){
